@@ -149,6 +149,7 @@
     <ClCompile Include="Dependencies\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="Dependencies\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImSequencer.cpp" />
+    <ClCompile Include="src\JSON\JSON.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,8 @@
     <ClInclude Include="Dependencies\include\imgui\imstb_textedit.h" />
     <ClInclude Include="Dependencies\include\imgui\imstb_truetype.h" />
     <ClInclude Include="Dependencies\include\imgui\ImZoomSlider.h" />
+    <ClInclude Include="src\JSON\JSON.h" />
+    <ClInclude Include="src\PlayerData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
