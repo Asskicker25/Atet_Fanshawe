@@ -5,6 +5,7 @@
 #include "BaseMaterial.h"
 #include "MeshDataHolder.h"
 #include "EntityManager/Entity.h"
+#include "Texture/Texture.h"
 
 class Renderer;
 

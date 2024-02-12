@@ -98,7 +98,7 @@ Shader::Shader()
 	ShaderSystem::GetInstance().AddShader(this);
 }
 
-Shader::Shader(const std::string& path, BlendMode transparentMode, bool useLightCalculation)
+Shader::Shader(const std::string& path, bool addToSystem, BlendMode transparentMode, bool useLightCalculation)
 {
 	this->blendMode = transparentMode;
 
@@ -111,7 +111,10 @@ Shader::Shader(const std::string& path, BlendMode transparentMode, bool useLight
 		LightManager::GetInstance().AddShader(this);
 	}
 
-	ShaderSystem::GetInstance().AddShader(this);
+	if (addToSystem)
+	{
+		ShaderSystem::GetInstance().AddShader(this);
+	}
 }
 
 Shader::~Shader()

@@ -8,6 +8,7 @@ public:
 	float deltaTime{ 0 };
 	float currentTime{ 0 };
 	float lastFrameTime{ 0 };
+	float elapsedTime{ 0 };
 
 	void SetCurrentTime(float currentTime);
 

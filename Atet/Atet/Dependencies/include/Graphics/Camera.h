@@ -2,8 +2,9 @@
 
 #include "Debugger.h"
 #include "Transform.h"
-#include "RenderTexture.h"
+#include "Texture/RenderTexture.h"
 #include "Model.h"
+#include "PostProcessing/PostProcessing.h"
 
 enum ECameraType
 {
@@ -13,7 +14,9 @@ enum ECameraType
 
 class Camera : public Model
 {
-private:
+
+protected:
+
 	ECameraType cameraType;
 	float cameraWidth = 1280;
 	float cameraHeight = 720;
@@ -34,7 +37,10 @@ private:
 public:
 
 	bool isViewPortCamera = false;
+	bool applyPostProcessing = false;
 	RenderTexture* renderTexture = nullptr;
+
+	PostProcessing_v1::PostProcessing* postProcessing;
 
 	Camera();
 	Camera(ECameraType _cameraType, float _cameraWidth, float _cameraHeight, float _nearPlane, float _farPlane, float _fov);

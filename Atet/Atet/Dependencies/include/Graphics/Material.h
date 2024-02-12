@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Debugger.h"
-#include "Texture.h"
+#include "Texture/BaseTexture.h"
 #include "BaseMaterial.h"
 
 
@@ -21,9 +21,9 @@ private:
 
 public:
 
-	Texture* diffuseTexture;
-	Texture* specularTexture;
-	Texture* alphaMask;
+	BaseTexture* diffuseTexture;
+	BaseTexture* specularTexture;
+	BaseTexture* alphaMask;
 
 	AmbientType ambientType;
 

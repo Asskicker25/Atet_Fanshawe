@@ -9,5 +9,7 @@ public:
 
 	GameCamera();
 	~GameCamera();
+
+	void SetRenderTexture(RenderTexture* texture);
 };
 

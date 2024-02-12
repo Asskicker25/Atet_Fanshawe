@@ -102,9 +102,10 @@ void ApplicationWindow::InitializeWindow(int windowWidth, int windowHeight)
 
 	fbSpecs.width = windowWidth;
 	fbSpecs.height = windowHeight;
+	fbSpecs.attachments = { FrameBufferTextureFormat::RGBA8 , FrameBufferTextureFormat::DEPTH24STENCIL8 };
 
 	viewportFrameBuffer = new FrameBuffer(fbSpecs);
-	gameFrameBuffer = new FrameBuffer(fbSpecs);
+	gameSceneFrameBuffer = new FrameBuffer(fbSpecs);
 
 	skyBox = new Model("res/Models/DefaultCube.fbx", true);
 	skyBox->meshes[0]->material = new SkyBoxMaterial();
@@ -160,7 +161,6 @@ void ApplicationWindow::InitializeWindow(int windowWidth, int windowHeight)
 	Renderer::GetInstance().debugSpheres = debugSpheres;
 	Renderer::GetInstance().debugLines = debugLines;
 
-
 	Renderer::GetInstance().skyBox = skyBox;
 
 	Renderer::GetInstance().Initialize();
@@ -169,9 +169,12 @@ void ApplicationWindow::InitializeWindow(int windowWidth, int windowHeight)
 	LightManager::GetInstance().AddShader(alphaBlendShader);
 	LightManager::GetInstance().AddShader(alphaCutOutShader);
 
-	viewportCamera->SetCameraHeight(windowHeight);
-	viewportCamera->SetCameraWidth(windowWidth);
 
+
+	viewportCamera->SetCameraWidth(windowWidth);
+	viewportCamera->SetCameraHeight(windowHeight);
+
+	viewportCamera->name = "Viewport Camera";
 	viewportCamera->InitializeCamera();
 
 }
@@ -209,23 +212,30 @@ void ApplicationWindow::EngineRender()
 
 	LightManager::GetInstance().RenderLight();
 
+#pragma region Render Pipeline
 
 	RenderForCamera(viewportCamera, viewportFrameBuffer, true);
 
-
 	for (Camera* cam : CameraSystem::GetInstance().mListOfCameras)
 	{
-		RenderForCamera(cam,
-			cam->renderTexture == nullptr ? gameFrameBuffer : cam->renderTexture->mFrameBuffer);
+		if (cam->renderTexture == nullptr) continue;
+
+		RenderForCamera(cam, cam->renderTexture->mFrameBuffer);
 	}
+
+	RenderForCamera(CameraSystem::GetInstance().GetMainCamera(), gameSceneFrameBuffer);
+	//RenderForCamera(CameraSystem::GetInstance().GetMainCamera(), gameFinalFrameBuffer);
+
+
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+#pragma endregion
 
 	debugCubesModel->Clear();
 	debugCubesData->Clear();
 	debugSpheres->Clear();
 	debugLines->Clear();
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void ApplicationWindow::MainLoop()
@@ -288,7 +298,12 @@ void ApplicationWindow::RenderForCamera(Camera* camera, FrameBuffer* frameBuffer
 		Render();
 	}
 	Renderer::GetInstance().Draw(viewport);
-	//debugRenderer.Draw();
+
+
+	if (camera->applyPostProcessing)
+	{
+		camera->postProcessing->ApplyPostProcessing(frameBuffer);
+	}
 
 	frameBuffer->UnBind();
 }
@@ -423,6 +438,10 @@ void ApplicationWindow::SetViewportSize(GLFWwindow* window, int width, int heigh
 	/*windowWidth = width;
 	windowHeight = height;
 	glViewport(0, 0, width, height);*/
+
+	/*viewportFrameBuffer->Resize(width, height);
+	gameSceneFrameBuffer->Resize(width, height);
+	gameFinalFrameBuffer->Resize(width, height);*/
 }
 
 void ApplicationWindow::MouseHeldCallback(GLFWwindow* window, int& button, int& action, int& mods)

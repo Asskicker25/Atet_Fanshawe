@@ -1,8 +1,9 @@
-#include "SceneHierarchyPanel.h"
 #include <iostream>
+#include "SceneHierarchyPanel.h"
+#include "EditorLayout.h"
 #include "../EntityManager/EntityManager.h"
 #include "../LightManager.h"
-#include "EditorLayout.h"
+#include "../CameraSystem.h"
 
 
 SceneHierarchyPanel::SceneHierarchyPanel()
@@ -24,6 +25,7 @@ void SceneHierarchyPanel::OnRender(float windowSizeX, float windowSizeY)
 	}
 
 	ShowLights();
+	ShowCamera();
 	ShowEntities();
 	
 	ImGui::End();
@@ -57,5 +59,22 @@ void SceneHierarchyPanel::ShowLights()
 	for (Light* light : lights)
 	{
 		light->OnSceneDraw();
+	}
+}
+
+void SceneHierarchyPanel::ShowCamera()
+{
+	if (!ImGui::CollapsingHeader("Cameras", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	std::vector<Camera*> cameras = CameraSystem::GetInstance().mListOfCameras;
+
+	viewportCamera->OnSceneDraw();
+
+	for (Camera* cam : cameras)
+	{
+		cam->OnSceneDraw();
 	}
 }

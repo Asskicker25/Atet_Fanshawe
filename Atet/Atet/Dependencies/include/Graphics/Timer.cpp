@@ -12,5 +12,7 @@ void Timer::SetCurrentTime(float currentTime)
 
     deltaTime = currentTime - lastFrameTime;
 
+    elapsedTime += deltaTime;
+
     lastFrameTime = currentTime;
 }

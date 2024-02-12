@@ -16,7 +16,8 @@
 #include "VertexLayout.h"
 #include "IndexBuffer.h"
 #include "Shaders/Shader.h"
-#include "Texture.h"
+#include "Texture/Texture.h"
+#include "Texture/RenderTexture.h"
 #include "Transform.h"
 #include "Camera.h"
 #include "Model.h"
@@ -36,6 +37,8 @@
 #include "Shaders/UnlitColorShader.h"
 #include "Shaders/SkyBoxShader.h"
 #include "GameCamera.h"
+#include "PostProcessing/PostProcessing.h"
+#include "RenderQuad.h"
 
 
 class ApplicationWindow
@@ -77,7 +80,7 @@ public:
 	glm::mat4 view = glm::mat4(1.0f);
 
 	FrameBuffer* viewportFrameBuffer;
-	FrameBuffer* gameFrameBuffer;
+	FrameBuffer* gameSceneFrameBuffer;
 
 	DebugModels* debugCubesModel;
 	DebugModels* debugCubesData;
@@ -92,6 +95,8 @@ public:
 	Shader alphaBlendShader;
 	Shader alphaCutOutShader;
 	SkyBoxShader skyboxShader;
+
+
 
 	Model* skyBox;
 

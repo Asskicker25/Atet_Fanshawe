@@ -37,7 +37,7 @@ public:
 	bool applyModel = true;
 
 	Shader();
-	Shader(const std::string& path, BlendMode transparentMode = OPAQUE, bool useLightCalculation = true);
+	Shader(const std::string& path, bool addToSystem = true, BlendMode transparentMode = OPAQUE, bool useLightCalculation = true);
 	~Shader();
 
 	void LoadShader(const std::string& path, BlendMode transparentMode = OPAQUE, bool useLightCalculation = true);

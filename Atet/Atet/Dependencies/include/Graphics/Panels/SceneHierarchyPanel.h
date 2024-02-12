@@ -4,6 +4,7 @@
 
 class EntityManager;
 class LightManager;
+class Camera;
 
 class SceneHierarchyPanel : public BasePanel
 {
@@ -17,7 +18,9 @@ public:
 
 	void ShowEntities();
 	void ShowLights();
+	void ShowCamera();
 
+	Camera* viewportCamera = nullptr;
 
 private:
 

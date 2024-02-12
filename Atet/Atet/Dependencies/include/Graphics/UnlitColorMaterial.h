@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseMaterial.h"
-#include "Texture.h"
+#include "Texture/BaseTexture.h"
 
 class UnlitColorMaterial : public BaseMaterial
 {
@@ -11,7 +11,7 @@ private:
 
 public:
 
-	Texture* alphaMask;
+	BaseTexture* alphaMask;
 
 	float alphaCutoffThreshold = 0.5f;
 

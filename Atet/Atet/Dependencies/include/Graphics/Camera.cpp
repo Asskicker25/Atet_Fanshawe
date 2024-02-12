@@ -31,6 +31,10 @@ void Camera::InitializeCamera(ECameraType _cameraType, float _cameraWidth, float
 
 	Resize(cameraWidth,cameraHeight);
 
+	postProcessing = new PostProcessing_v1::PostProcessing(cameraWidth, cameraHeight);
+
+	//InitializeEntity(this);
+
 	if (isViewPortCamera) return;
 
 	LoadModel("res/Models/DefaultQuad.fbx", true);
@@ -40,7 +44,9 @@ void Camera::InitializeCamera(ECameraType _cameraType, float _cameraWidth, float
 	//meshes[0]->material->AsUnlitMaterial()->diffuseTexture = new Texture("res/Textures/Icons/Light_Icon.png");
 	meshes[0]->material->AsUnlitMaterial()->alphaMask = new Texture("res/Textures/Icons/Camera.png");
 	Renderer::GetInstance().AddModel(this);
-	InitializeEntity(this);
+
+
+
 }
 
 void Camera::InitializeCamera()
@@ -162,6 +168,20 @@ void Camera::OnPropertyDraw()
 		cameraType = ECameraType(item_current);
 		UpdateProjectionMatrix();
 	}
+
+	ImGui::Columns(1);
+
+	ImGui::TreePop();
+
+	ImGui::Checkbox("###EnablePostProcess", &applyPostProcessing);
+	ImGui::SameLine();
+
+	if (!ImGui::TreeNodeEx("PostProcessing", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	postProcessing->OnPropertyDraw();
 
 	ImGui::TreePop();
 }

@@ -9,11 +9,8 @@ CameraSystem& CameraSystem::GetInstance()
 void CameraSystem::AddCamera(Camera* camera)
 {
 	mListOfCameras.push_back(camera);
-
-	if (camera->renderTexture != nullptr) return;
-
-	mainCamera = camera;
 }
+
 
 void CameraSystem::RemoveCamera(Camera* camera)
 {
@@ -23,5 +20,14 @@ void CameraSystem::RemoveCamera(Camera* camera)
 
 Camera* CameraSystem::GetMainCamera()
 {
-	return mainCamera;
+	Camera* camera = nullptr;
+
+	for (Camera* cam : mListOfCameras)
+	{
+		if (cam->renderTexture != nullptr) continue;
+
+		camera = cam;
+	}
+
+	return camera;
 }

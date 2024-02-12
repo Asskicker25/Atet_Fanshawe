@@ -4,7 +4,6 @@
 #include "Material.h"
 #include "Panels/EditorLayout.h"
 
-
 Model::Model()
 {
 	shader = Renderer::GetInstance().defaultShader;
@@ -377,7 +376,7 @@ MeshAndMaterial* Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 		meshMat->AsMaterial()->specularTexture = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		meshMat->AsMaterial()->alphaMask = LoadMaterialTextures(material, aiTextureType_OPACITY, "texture_opacity");
 
-		if (meshMat->AsMaterial()->alphaMask->path != "res/Textures/DefaultTextures/Opacity_Default.png")
+		if (((Texture*)meshMat->AsMaterial()->alphaMask)->path != "res/Textures/DefaultTextures/Opacity_Default.png")
 		{
 			meshMat->AsMaterial()->useMaskTexture = true;
 		}

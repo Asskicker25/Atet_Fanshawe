@@ -15,9 +15,5 @@ public:
 
 	std::vector<Camera*> mListOfCameras;
 
-private:
-
-	Camera* mainCamera = nullptr;
-
 };
 

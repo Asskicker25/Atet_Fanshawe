@@ -52,7 +52,7 @@ void GameViewportPanel::OnRender(float windowSizeX, float windowSizeY)
     ImVec2 uv1 = ImVec2(1.0f, 0.0f);
 
     ImGui::SetCursorPos(renderPos);
-    ImGui::Image((void*)frameBuffer->GetColorAttachmentId(), renderSize, uv0, uv1, ImVec4(1, 1, 1, 1), ImVec4(1, 1, 1, 0));
+    ImGui::Image( (void*)sceneBuffer->GetColorAttachmentId(), renderSize, uv0, uv1);
 
 
 	ImGui::End();

@@ -6,7 +6,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 #include "VertexLayout.h"
-#include "Texture.h"
+#include "Texture/BaseTexture.h"
 #include "IndexBuffer.h"
 #include "TextureData.h"
 #include "Material.h"
@@ -18,7 +18,7 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector< unsigned int> indices;
 	std::vector< Triangles > triangles;
-	std::vector< Texture* > textures;
+	std::vector< BaseTexture* > textures;
 
 	Mesh(std::vector<Vertex>& vertices, std::vector< unsigned int>& indices, std::string name = "NoName");
 

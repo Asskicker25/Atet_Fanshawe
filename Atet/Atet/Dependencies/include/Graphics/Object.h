@@ -15,6 +15,8 @@ public:
 	bool isEnabled = true;
 
 	Object();
+	virtual ~Object() {};
+
 	virtual void OnPropertyDraw() = 0;
 	virtual void OnSceneDraw() = 0;
 };

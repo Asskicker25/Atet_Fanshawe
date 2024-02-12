@@ -16,9 +16,10 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render() = 0;
 	virtual void OnDestroy() = 0;
-	virtual void OnPropertyDraw();
 
+	virtual void OnPropertyDraw();
 	virtual void OnSceneDraw();
+
 	virtual void Destroy();
 
 	Transform transform;

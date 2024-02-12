@@ -16,10 +16,15 @@ void EditorLayout::InitializeLayout()
 	sceneViewportPanel = new SceneViewportPanel();
 	gameViewportPanel = new GameViewportPanel();
 
+	scenePanel->viewportCamera = application->viewportCamera;
+
 	sceneViewportPanel->frameBuffer = application->viewportFrameBuffer;
 	sceneViewportPanel->viewportCamera = application->viewportCamera;
 	sceneViewportPanel->mouseHeld = &application->mouseHeld;
-	gameViewportPanel->frameBuffer = application->gameFrameBuffer;
+
+	gameViewportPanel->sceneBuffer = application->gameSceneFrameBuffer;
+	//gameViewportPanel->sceneBuffer = application->postProcessing->chromaticAberration.frameBuffer;
+
 	gameViewportPanel->mResolution = ImVec2(application->gameResolutionWidth, application->gameResolutionHeight);
 }
 
