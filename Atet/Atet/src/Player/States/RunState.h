@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Graphics/InputManager/InputManager.h>
-
+#include <Graphics/CameraSystem.h>
 #include "BaseState.h"
 
 namespace Player
@@ -22,6 +22,14 @@ namespace Player
 		void OnKeyPressed(const int& key) override;
 		void OnKeyReleased(const int& key) override;
 		void OnKeyHeld(const int& key) override;
+
+	private:
+		bool HandleInput();
+		void HandleMovement();
+		void HandleRotation();
+
+		inline Camera* GetMainCamera() const { return CameraSystem::GetInstance().GetMainCamera(); }
+
 	};
 }
 

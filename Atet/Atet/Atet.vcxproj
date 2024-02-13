@@ -168,6 +168,7 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\ePlayerAxis.h" />
     <ClInclude Include="src\WorldObjectFactory\Floor.h" />
     <ClInclude Include="src\WorldObjectFactory\BaseWorldObject.h" />
     <ClInclude Include="src\Player\CameraController.h" />

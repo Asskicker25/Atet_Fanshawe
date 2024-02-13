@@ -81,10 +81,16 @@ void Player::PlayerController::OnPropertyDraw()
 	if (ImGuiUtils::DrawDropDown("State", mCurrentStateInt, stateStrings, 2))
 	{
 		ChangeState((ePlayerState)mCurrentStateInt);
+	}
 
+	if (ImGuiUtils::DrawDropDown("Axis", mCurrentAxisInt, axisStrings, 2))
+	{
+		mCurrentAxis = (ePlayerAxis)mCurrentAxisInt;
 	}
 
 	ImGuiUtils::DrawFloat("FaceDir", mPlayerFaceDir);
+	ImGuiUtils::DrawFloat("MoveDir", mMoveDir);
 
 	ImGui::TreePop();
 }
+

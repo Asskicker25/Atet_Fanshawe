@@ -35,4 +35,8 @@ void Player::IdleState::OnKeyReleased(const int& key)
 
 void Player::IdleState::OnKeyHeld(const int& key)
 {
+	if (key == GLFW_KEY_A || key == GLFW_KEY_D)
+	{
+		ChangeState(ePlayerState::RUN);
+	}
 }

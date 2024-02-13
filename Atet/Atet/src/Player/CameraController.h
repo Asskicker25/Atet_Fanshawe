@@ -20,6 +20,8 @@ namespace Player
 		void OnDestroy() override;
 		void OnPropertyDraw() override;
 
+		bool mFlipCamera = false;
+
 	private:
 
 		inline Camera* GetMainCamera() const { return CameraSystem::GetInstance().GetMainCamera(); }
@@ -27,13 +29,16 @@ namespace Player
 		void HandlePosition(float dt);
 		void HandleRotation(float dt);
 
-
 		float mDistance = 7;
-		float mLerpSpeed = 10;
+		float mPosLerpSpeed = 10;
+		float mRotLerpSpeed = 100;
 		float mColumnWidth = 150;
 
 		glm::vec3 mCameraPos;
-		glm::vec3 mOffset = glm::vec3(0,3.5f,0);
+		glm::vec3 mCameraDir;
+		glm::vec3 mFollowOffset = glm::vec3(0,3.5f,0);
+		glm::vec3 mLookAtOffset = glm::vec3(0,1.3f,0);
+		glm::vec3 mCameraRight;
 
 		PlayerController* mPlayer = nullptr;
 

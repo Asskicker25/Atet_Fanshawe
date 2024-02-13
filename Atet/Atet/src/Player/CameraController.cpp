@@ -24,6 +24,8 @@ void CameraController::Update(float deltaTime)
 {
 	HandlePosition(deltaTime);
 	HandleRotation(deltaTime);
+
+	mCameraRight = GetMainCamera()->transform.GetRight();
 }
 
 void CameraController::Render()
@@ -45,22 +47,38 @@ void Player::CameraController::OnPropertyDraw()
 		return;
 	}
 
+	ImGuiUtils::DrawBool("FlipCamera", mFlipCamera);
 	ImGuiUtils::DrawFloat("Distance", mDistance);
-	ImGuiUtils::DrawFloat("LerpSpeed", mLerpSpeed);
-	ImGuiUtils::DrawVector3ImGui("Offset", mOffset, 0, mColumnWidth);
+	ImGuiUtils::DrawFloat("PosLerpSpeed", mPosLerpSpeed);
+	ImGuiUtils::DrawFloat("RotLerpSpeed", mRotLerpSpeed);
+	ImGuiUtils::DrawVector3ImGui("FollowOffset", mFollowOffset, 0, mColumnWidth);
+	ImGuiUtils::DrawVector3ImGui("LookAtOffset", mLookAtOffset, 0, mColumnWidth);
+	ImGuiUtils::DrawVector3ImGui("CameraRight", mCameraRight, 0, mColumnWidth);
 
 	ImGui::TreePop();
 }
 
 void Player::CameraController::HandlePosition(float dt)
 {
-	mCameraPos = mPlayer->transform.position -  mPlayer->transform.GetRight() * mDistance * mPlayer->mPlayerFaceDir;
-	mCameraPos += mOffset;
-	mCameraPos = MathUtils::Lerp(GetMainCamera()->transform.position, mCameraPos, dt * mLerpSpeed);
+	float dir = mPlayer->mPlayerFaceDir * (mFlipCamera ? -1 : 1);
+
+	mCameraPos = mPlayer->transform.position -  mPlayer->transform.GetRight() * mDistance * dir;
+	mCameraPos += mFollowOffset;
+	mCameraPos = MathUtils::Lerp(GetMainCamera()->transform.position, mCameraPos, dt * mPosLerpSpeed);
 
 	GetMainCamera()->transform.SetPosition(mCameraPos);
 }
 
 void Player::CameraController::HandleRotation(float dt)
 {
+	float dir = 1;
+
+	mCameraDir =  (mPlayer->transform.position + mLookAtOffset) - GetMainCamera()->transform.position ;
+	mCameraDir = glm::normalize(mCameraDir);
+
+	glm::quat rotationQuat = glm::quatLookAt(mCameraDir * dir, glm::vec3(0,1,0));
+	/*glm::quat rotation = glm::slerp(GetMainCamera()->transform.quaternionRotation, rotationQuat, 
+		glm::clamp(dt * mRotLerpSpeed,0.0f,1.0f));*/
+
+	GetMainCamera()->transform.SetQuatRotation(rotationQuat);
 }

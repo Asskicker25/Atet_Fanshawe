@@ -2,6 +2,7 @@
 
 #include <Graphics/Model.h>
 
+#include "ePlayerAxis.h"
 #include "States/ePlayerState.h"
 #include "PlayerData.h"
 #include "States/BaseState.h"
@@ -27,17 +28,26 @@ namespace Player
 		void OnPropertyDraw() override;
 
 		float mPlayerFaceDir = 1;
+		float mMoveDir = 0;
+
+		PlayerData mPlayerData;
+
+		ePlayerAxis mCurrentAxis = ePlayerAxis::X;
+		ePlayerState mCurrentState = ePlayerState::IDLE;
+
+		CameraController* mCameraController = nullptr;
 
 	private:
 
 		int mCurrentStateInt = 0;
+		int mCurrentAxisInt = 0;
+
 
 		const char* stateStrings[2] = { "IDLE", "RUN" };
+		const char* axisStrings[2] = { "X", "Z" };
 
-		PlayerData mPlayerData;
-		ePlayerState mCurrentState = ePlayerState::IDLE;
 
-		CameraController* mCameraController = nullptr;
+
 
 		std::unordered_map<ePlayerState, BaseState*> mListOfStates;
 

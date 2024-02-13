@@ -209,5 +209,8 @@
     <ClInclude Include="src\WorldObjectFactory\Floor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Player\ePlayerAxis.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
