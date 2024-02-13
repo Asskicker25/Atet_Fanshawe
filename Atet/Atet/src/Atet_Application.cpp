@@ -1,30 +1,31 @@
 #include "Atet_Application.h"
+#include "Scenes/Scene_1.h"
 
 void Atet_Application::SetUp()
 {
 	viewportCamera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 100.0f, 45.0f);
 
-	viewportCamera->transform.SetPosition(glm::vec3(0, 0, 10));
+	viewportCamera->transform.SetPosition(glm::vec3(0, 20, 7));
+	viewportCamera->transform.SetRotation(glm::vec3(-55, 0, 0));
 
 	Renderer::GetInstance().renderMode = SHADED;
 
 	imGuiPanelEnable = true;
 
-	GameCamera* mainCamera = new GameCamera();
-	mainCamera->InitializeCamera(PERSPECTIVE, gameResolutionWidth, gameResolutionHeight, 0.1f, 100.0f, 45.0f);
-	mainCamera->transform.SetPosition(glm::vec3(0, 0, 10));
+	BaseScene* scene_1 = new Scene_1();
 
-	Light* dirLight = new Light();
-	dirLight->transform.SetScale(glm::vec3(0.1f));
-	dirLight->transform.SetPosition(glm::vec3(0, 0, 3));
-	dirLight->InitializeLight(Directional);
+	SceneManager::GetInstance().AddScene("Scene_1", scene_1);
 
+	SceneManager::GetInstance().ChangeScene("Scene_1");
 
 }
 
 void Atet_Application::Update()
 {
-	PhysicsEngine::GetInstance().Update(Timer::GetInstance().deltaTime);
+	if (applicationPlay)
+	{
+		PhysicsEngine::GetInstance().Update(Timer::GetInstance().deltaTime);
+	}
 }
 
 void Atet_Application::Render()

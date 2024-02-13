@@ -143,6 +143,7 @@
     <ClCompile Include="Dependencies\include\Physics\PhysicsObject.cpp" />
     <ClCompile Include="Dependencies\include\Physics\PhysicsProperties.cpp" />
     <ClCompile Include="Dependencies\include\Physics\PhysicsShapeAndCollision.cpp" />
+    <ClCompile Include="src\Scenes\Scene_1.cpp" />
     <ClCompile Include="src\Atet_Application.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImCurveEdit.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImGradient.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Dependencies\include\Physics\PhysicsObject.h" />
     <ClInclude Include="Dependencies\include\Physics\PhysicsProperties.h" />
     <ClInclude Include="Dependencies\include\Physics\PhysicsShapeAndCollision.h" />
+    <ClInclude Include="src\Scenes\Scene_1.h" />
     <ClInclude Include="src\AppSettings.h" />
     <ClInclude Include="src\Atet_Application.h" />
     <ClInclude Include="Dependencies\include\imgui\imconfig.h" />

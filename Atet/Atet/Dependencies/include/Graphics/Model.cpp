@@ -184,7 +184,7 @@ void Model::DrawWireframe(const glm::vec3& color)
 
 }
 
-Model* Model::CopyFromModel(const Model& model)
+Model* Model::CopyFromModel(const Model& model, bool initialize)
 {
 	isActive = model.isActive;
 	directory = model.directory;
@@ -200,6 +200,13 @@ Model* Model::CopyFromModel(const Model& model)
 
 		meshes.push_back(newMesh);
 	}
+
+	if (initialize)
+	{
+		InitializeEntity(this);
+		Renderer::GetInstance().AddModel(this);
+	}
+	
 
 	return this;
 }

@@ -27,7 +27,7 @@ public:
 	void Draw(Shader* shader);
 	void DrawSolidColor(Shader* shader, glm::vec3 color);
 	void SetModelParent(Model* model);
-	Model* CopyFromModel(const Model& model);
+	Model* CopyFromModel(const Model& model, bool initialize = false);
 	//Material material;
 
 	Transform* GetTransform();
