@@ -1,6 +1,10 @@
+#include <Graphics/EntityManager/EntityManager.h>
+
 #include "Scene_1.h"
 #include "../AppSettings.h"
-#include <Graphics/EntityManager/EntityManager.h>
+#include "../Player/PlayerController.h"
+
+using namespace Player;
 
 void Scene_1::Start()
 {
@@ -32,6 +36,9 @@ void Scene_1::Start()
 	floor_3->transform.SetPosition(glm::vec3(15, 0, -12));
 	floor_3->transform.SetRotation(glm::vec3(90, 0, 0));
 	floor_3->transform.SetScale(glm::vec3(5, 1, 1));
+
+	PlayerController* playerController = new PlayerController();
+	playerController->transform.SetPosition(glm::vec3( - 3.0, 0, 0));
 	
 }
 

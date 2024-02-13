@@ -5,7 +5,7 @@
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
 
-#include "../PlayerData.h"
+#include "../Player/PlayerData.h"
 
 class JSON
 {

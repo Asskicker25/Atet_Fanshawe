@@ -1,5 +1,5 @@
 {
-    "modelPath": "Model/Player.fbx",
+    "modelPath": "Assets/Models/Player/Player.fbx",
     "lives": 1,
     "speed": 10.0
 }

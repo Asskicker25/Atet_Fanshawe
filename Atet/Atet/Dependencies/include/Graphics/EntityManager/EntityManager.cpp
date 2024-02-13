@@ -74,13 +74,17 @@ void EntityManager::Update(float deltaTime)
 	{
 		for (std::pair<const std::string&, Entity*> item : listOfEntities)
 		{
-			if (item.second->isEnabled && !item.second->isStartInvoked )
+			if (item.second->isEnabled)
 			{
-				item.second->Start();
-				item.second->isStartInvoked = true;
-			}
+				if (!item.second->isStartInvoked)
+				{
+					item.second->Start();
+					item.second->isStartInvoked = true;
+				}
 
-			item.second->Update(deltaTime);
+				item.second->Update(deltaTime);
+
+			}
 		}
 	}
 	catch (const std::exception& e)
