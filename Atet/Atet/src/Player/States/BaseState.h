@@ -10,7 +10,8 @@ namespace Player
 	class BaseState
 	{
 	public:
-		
+
+		virtual ~BaseState() {};
 		virtual void Start() = 0;
 		virtual void Update() = 0;
 		virtual void Render() = 0;

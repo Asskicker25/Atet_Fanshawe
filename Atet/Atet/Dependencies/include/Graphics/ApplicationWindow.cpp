@@ -242,14 +242,13 @@ void ApplicationWindow::EngineRender()
 
 void ApplicationWindow::MainLoop()
 {
-	SetUp();
-
-	EditorLayout::GetInstance().application = this;
-
 	if (imGuiPanelEnable)
 	{
+		EditorLayout::GetInstance().application = this;
 		EditorLayout::GetInstance().InitializeLayout();
 	}
+
+	SetUp();
 
 	Timer::GetInstance().lastFrameTime = glfwGetTime();
 

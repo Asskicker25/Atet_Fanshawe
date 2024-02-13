@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string.h>
-#include "../Debugger.h"
+#include "../Debugger.h" 
 
 namespace Scene
 {
@@ -11,6 +11,7 @@ namespace Scene
 
 		std::string mName = "UnNamed";
 
+		virtual ~BaseScene() {} ;
 		virtual void Start() = 0;
 		virtual void Update() = 0;
 		virtual void Render() = 0;

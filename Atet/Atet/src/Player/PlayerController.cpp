@@ -19,6 +19,8 @@ PlayerController::PlayerController()
 
 	AddState(ePlayerState::IDLE, new IdleState());
 	AddState(ePlayerState::RUN, new RunState());
+
+	mCameraController = new CameraController(this);
 }
 
 void Player::PlayerController::AddState(ePlayerState stateType, BaseState* state)
@@ -81,6 +83,8 @@ void Player::PlayerController::OnPropertyDraw()
 		ChangeState((ePlayerState)mCurrentStateInt);
 
 	}
+
+	ImGuiUtils::DrawFloat("FaceDir", mPlayerFaceDir);
 
 	ImGui::TreePop();
 }

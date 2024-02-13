@@ -11,7 +11,6 @@ void Player::IdleState::Start()
 
 void Player::IdleState::Update()
 {
-	Debugger::Print("IDle");
 }
 
 void Player::IdleState::Render()

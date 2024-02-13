@@ -11,7 +11,6 @@ void Player::RunState::Start()
 
 void Player::RunState::Update()
 {
-	Debugger::Print("Run");
 }
 
 void Player::RunState::Render()

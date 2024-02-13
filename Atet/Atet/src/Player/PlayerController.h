@@ -5,6 +5,7 @@
 #include "States/ePlayerState.h"
 #include "PlayerData.h"
 #include "States/BaseState.h"
+#include "CameraController.h"
 
 namespace Player
 {
@@ -25,13 +26,18 @@ namespace Player
 		void Render() override;
 		void OnPropertyDraw() override;
 
+		float mPlayerFaceDir = 1;
+
 	private:
+
 		int mCurrentStateInt = 0;
 
 		const char* stateStrings[2] = { "IDLE", "RUN" };
 
 		PlayerData mPlayerData;
 		ePlayerState mCurrentState = ePlayerState::IDLE;
+
+		CameraController* mCameraController = nullptr;
 
 		std::unordered_map<ePlayerState, BaseState*> mListOfStates;
 

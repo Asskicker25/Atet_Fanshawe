@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Player\CameraController.cpp" />
     <ClCompile Include="src\Player\States\RunState.cpp" />
     <ClCompile Include="src\Player\States\IdleState.cpp" />
     <ClCompile Include="src\Player\States\BaseState.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\CameraController.h" />
     <ClInclude Include="src\Player\States\RunState.h" />
     <ClInclude Include="src\Player\States\IdleState.h" />
     <ClInclude Include="src\Player\States\BaseState.h" />

@@ -11,6 +11,8 @@ void Atet_Application::SetUp()
 	Renderer::GetInstance().renderMode = SHADED;
 
 	imGuiPanelEnable = true;
+	
+	EditorLayout::GetInstance().SetMaximizeState(false);
 
 	BaseScene* scene_1 = new Scene_1();
 

@@ -2,7 +2,7 @@
 
 #include <glm/gtx/matrix_decompose.hpp>
 
-bool MathUtils::DecomposeTransform(const glm::mat4& transform, glm::vec3& pos, glm::vec3& rotation, glm::vec3& scale)
+bool MathUtilities::MathUtils::DecomposeTransform(const glm::mat4& transform, glm::vec3& pos, glm::vec3& rotation, glm::vec3& scale)
 {
 	// From glm::decompose in matrix_decompose.inl
 
@@ -72,4 +72,48 @@ bool MathUtils::DecomposeTransform(const glm::mat4& transform, glm::vec3& pos, g
 
 
 	return true;
+}
+
+float MathUtilities::MathUtils::Remap(float value, float inputMin, float inputMax, float outputMin, float outputMax)
+{
+	if (value < inputMin) value = inputMin;
+	if (value > inputMax) value = inputMax;
+
+	float normalizedValue = (value - inputMin) / (inputMax - inputMin);
+
+	float remapValue = outputMin + normalizedValue * (outputMax - outputMin);
+
+	return remapValue;
+}
+
+const float MathUtilities::MathUtils::GetRandomFloatNumber(float minValue, float maxValue)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<float> distribution(minValue, maxValue);
+
+	return distribution(gen);
+}
+
+const int MathUtilities::MathUtils::GetRandomIntNumber(int minValue, int maxValue)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distribution(minValue, maxValue);
+
+	return distribution(gen);
+}
+
+glm::vec3 MathUtilities::MathUtils::Lerp(const glm::vec3& start, const glm::vec3& end, float t)
+{
+	t = glm::clamp(t, 0.0f, 1.0f);
+
+	return start + t * (end - start);
+}
+
+double MathUtilities::MathUtils::CalculateTForSpeed(double currentT, double deltaTime, double lerpSpeed)
+{
+	double step = lerpSpeed * deltaTime;
+
+	return glm::clamp(currentT + step, 0.0, 1.0);
 }
