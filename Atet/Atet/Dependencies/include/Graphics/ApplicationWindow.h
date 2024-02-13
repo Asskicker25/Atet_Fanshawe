@@ -39,7 +39,7 @@
 #include "GameCamera.h"
 #include "PostProcessing/PostProcessing.h"
 #include "RenderQuad.h"
-
+#include "Scene/SceneManager.h"
 
 class ApplicationWindow
 {

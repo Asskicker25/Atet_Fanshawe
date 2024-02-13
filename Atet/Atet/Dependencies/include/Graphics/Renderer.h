@@ -86,6 +86,7 @@ public:
 	void Initialize();
 
 	void Clear();
+	void ClearModelList();
 	void AddModel(Model* model);
 	void AddModel(Model& model);
 	void RemoveModel(Model* model);

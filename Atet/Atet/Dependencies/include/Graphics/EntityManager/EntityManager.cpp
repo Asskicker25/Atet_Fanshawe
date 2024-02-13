@@ -111,3 +111,15 @@ void EntityManager::Destroy(Entity* entity)
 	entity->OnDestroy();
 }
 
+void EntityManager::Clear()
+{
+	std::unordered_map<std::string, Entity*>::iterator it;
+
+	for (it = listOfEntities.begin(); it != listOfEntities.end(); ++it)
+	{
+		delete it->second;
+	}
+
+	listOfEntities.clear();
+}
+

@@ -189,6 +189,8 @@ void ApplicationWindow::EngineUpdate()
 	MoveCameraKeyBoard(window);
 	ProcessInput(window);
 
+	Scene::SceneManager::GetInstance().Update();
+
 	if (applicationPlay)
 	{
 		EntityManager::GetInstance().Update(Timer::GetInstance().deltaTime);
@@ -274,6 +276,8 @@ void ApplicationWindow::MainLoop()
 
 void ApplicationWindow::RenderForCamera(Camera* camera, FrameBuffer* frameBuffer, bool viewport)
 {
+	if (camera == nullptr) return;
+
 	frameBuffer->Bind();
 
 	Renderer::GetInstance().Clear();
@@ -297,6 +301,8 @@ void ApplicationWindow::RenderForCamera(Camera* camera, FrameBuffer* frameBuffer
 		EntityManager::GetInstance().Render();
 		Render();
 	}
+
+	Scene::SceneManager::GetInstance().Render();
 	Renderer::GetInstance().Draw(viewport);
 
 
@@ -471,7 +477,6 @@ void ApplicationWindow::InputCallback(GLFWwindow* window, int& key, int& scancod
 	}
 	else if (action == GLFW_REPEAT)
 	{
-		InputManager::GetInstance().OnKeyHeld(key);
 	}
 }
 

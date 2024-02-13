@@ -39,6 +39,12 @@ void Renderer::Clear()
 	glStencilMask(0x00);
 }
 
+void Renderer::ClearModelList()
+{
+	nonBlendModelAndShaders.clear();
+	blendModelAndShaders.clear();
+}
+
 void Renderer::AddModel(Model* model)
 {
 	if (model->shader->blendMode == OPAQUE || model->shader->blendMode == ALPHA_CUTOUT)
