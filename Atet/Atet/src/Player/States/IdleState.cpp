@@ -1,4 +1,5 @@
 #include "IdleState.h"
+#include "../PlayerController.h"
 
 Player::IdleState::IdleState()
 {
@@ -7,6 +8,7 @@ Player::IdleState::IdleState()
 
 void Player::IdleState::Start()
 {
+	mPlayerController->velocity = glm::vec3(0);
 }
 
 void Player::IdleState::Update()

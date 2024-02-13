@@ -29,6 +29,7 @@ namespace Player
 		void HandlePosition(float dt);
 		void HandleRotation(float dt);
 
+		float mTimeStep = 0;
 		float mDistance = 7;
 		float mPosLerpSpeed = 10;
 		float mRotLerpSpeed = 100;

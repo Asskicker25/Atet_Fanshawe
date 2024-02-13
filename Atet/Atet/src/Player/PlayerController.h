@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Graphics/Model.h>
+#include <Physics/PhysicsObject.h>
 
 #include "ePlayerAxis.h"
 #include "States/ePlayerState.h"
@@ -10,7 +10,7 @@
 
 namespace Player
 {
-	class PlayerController : public Model
+	class PlayerController : public PhysicsObject
 	{
 	public:
 

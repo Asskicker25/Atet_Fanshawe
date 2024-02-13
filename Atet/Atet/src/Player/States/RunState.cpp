@@ -65,9 +65,11 @@ void Player::RunState::HandleMovement()
 	dir = glm::normalize(dir);
 	dir *= mPlayerController->mMoveDir;
 
+	/*mPlayerController->transform.position += dir
+		* mPlayerController->mPlayerData.speed * Timer::GetInstance().deltaTime;*/
 
-	mPlayerController->transform.position += dir 
-		* mPlayerController->mPlayerData.speed * Timer::GetInstance().deltaTime;
+	mPlayerController->velocity = dir 
+		* mPlayerController->mPlayerData.speed * 100.0f * Timer::GetInstance().deltaTime;
 }
 
 void Player::RunState::HandleRotation()
@@ -81,7 +83,6 @@ void Player::RunState::HandleRotation()
 		mPlayerController->mPlayerFaceDir == 1 ? 0 : 180;
 
 	mPlayerController->transform.SetRotation(glm::vec3(0, rotationY, 0));
-
 
 }
 

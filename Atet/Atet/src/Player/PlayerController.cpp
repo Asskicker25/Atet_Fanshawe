@@ -17,6 +17,8 @@ PlayerController::PlayerController()
 	transform.SetRotation(glm::vec3(0, 90, 0));
 	transform.SetScale(glm::vec3(0.01));
 
+	InitializePhysics(AABB, DYNAMIC, TRIGGER, true);
+
 	AddState(ePlayerState::IDLE, new IdleState());
 	AddState(ePlayerState::RUN, new RunState());
 

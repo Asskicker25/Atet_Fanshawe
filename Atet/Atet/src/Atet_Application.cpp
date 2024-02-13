@@ -8,10 +8,13 @@ void Atet_Application::SetUp()
 	viewportCamera->transform.SetPosition(glm::vec3(0, 20, 7));
 	viewportCamera->transform.SetRotation(glm::vec3(-55, 0, 0));
 
-	Renderer::GetInstance().renderMode = SHADED;
-
 	imGuiPanelEnable = true;
+
+	Renderer::GetInstance().renderMode = SHADED;
 	
+	PhysicsEngine::GetInstance().gravity.y = 0;
+	PhysicsEngine::GetInstance().fixedStepTime = 0.01f;
+
 	EditorLayout::GetInstance().SetMaximizeState(false);
 
 	BaseScene* scene_1 = new Scene_1();
