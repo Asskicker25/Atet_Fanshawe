@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Graphics/ApplicationWindow.h>
+#include <Physics/PhysicsEngine.h>
 
 class Atet_Application : public ApplicationWindow
 {

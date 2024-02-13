@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\Debug_assimp;$(ProjectDir)Dependencies\lib\glfw\$(Configuration)_x64;$(ProjectDir)Dependencies\lib\Graphics\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)Dependencies\lib\Debug_assimp;$(ProjectDir)Dependencies\lib\glfw\$(Configuration)_x64;$(ProjectDir)Dependencies\lib\Physics\$(Configuration);$(ProjectDir)Dependencies\lib\Graphics\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,10 +133,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Dependencies\include\Physics\HierarchicalAABB.cpp" />
+    <ClCompile Include="Dependencies\include\Physics\HierarchicalAABBNode.cpp" />
+    <ClCompile Include="Dependencies\include\Physics\PhysicsEngine.cpp" />
+    <ClCompile Include="Dependencies\include\Physics\PhysicsObject.cpp" />
+    <ClCompile Include="Dependencies\include\Physics\PhysicsProperties.cpp" />
+    <ClCompile Include="Dependencies\include\Physics\PhysicsShapeAndCollision.cpp" />
     <ClCompile Include="src\Atet_Application.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImCurveEdit.cpp" />
     <ClCompile Include="Dependencies\include\imgui\ImGradient.cpp" />
@@ -153,6 +159,13 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\include\Physics\HierarchicalAABB.h" />
+    <ClInclude Include="Dependencies\include\Physics\HierarchicalAABBNode.h" />
+    <ClInclude Include="Dependencies\include\Physics\iPhysicsTransformable.h" />
+    <ClInclude Include="Dependencies\include\Physics\PhysicsEngine.h" />
+    <ClInclude Include="Dependencies\include\Physics\PhysicsObject.h" />
+    <ClInclude Include="Dependencies\include\Physics\PhysicsProperties.h" />
+    <ClInclude Include="Dependencies\include\Physics\PhysicsShapeAndCollision.h" />
     <ClInclude Include="src\AppSettings.h" />
     <ClInclude Include="src\Atet_Application.h" />
     <ClInclude Include="Dependencies\include\imgui\imconfig.h" />
