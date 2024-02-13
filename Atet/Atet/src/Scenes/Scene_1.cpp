@@ -18,21 +18,19 @@ void Scene_1::Start()
 	dirLight->transform.SetPosition(glm::vec3(0, 0, 3));
 	dirLight->InitializeLight(Directional);
 
-	Model* floor_1 = new Model("res/Models/DefaultQuad.fbx");
+	BaseWorldObject* floor_1 = m_Floor->CreateFloor(0);
 	floor_1->name = "Floor_1";
 	floor_1->transform.SetRotation(glm::vec3(90, 0, 0));
 	floor_1->transform.SetScale(glm::vec3(10, 1, 1));
 
-	Model* floor_2 = new Model();
+	BaseWorldObject* floor_2 = m_Floor->CreateFloor(0);
 	floor_2->name = "Floor_2";
-	floor_2->CopyFromModel(*floor_1, true);
 	floor_2->transform.SetPosition(glm::vec3(9, 0, -7));
 	floor_2->transform.SetRotation(glm::vec3(90, 0, 0));
 	floor_2->transform.SetScale(glm::vec3(1, 6, 1));
 
-	Model* floor_3 = new Model();
-	floor_3->name = "Floor_2";
-	floor_3->CopyFromModel(*floor_1, true);
+	BaseWorldObject* floor_3 = m_Floor->CreateFloor(0);
+	floor_3->name = "Floor_3";
 	floor_3->transform.SetPosition(glm::vec3(15, 0, -12));
 	floor_3->transform.SetRotation(glm::vec3(90, 0, 0));
 	floor_3->transform.SetScale(glm::vec3(5, 1, 1));

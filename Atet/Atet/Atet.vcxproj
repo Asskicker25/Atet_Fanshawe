@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\WorldObjectFactory\Floor.cpp" />
+    <ClCompile Include="src\WorldObjectFactory\BaseWorldObject.cpp" />
     <ClCompile Include="src\Player\CameraController.cpp" />
     <ClCompile Include="src\Player\States\RunState.cpp" />
     <ClCompile Include="src\Player\States\IdleState.cpp" />
@@ -163,8 +165,11 @@
     <ClCompile Include="Dependencies\include\imgui\ImSequencer.cpp" />
     <ClCompile Include="src\JSON\JSON.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\WorldObjectFactory\Floor.h" />
+    <ClInclude Include="src\WorldObjectFactory\BaseWorldObject.h" />
     <ClInclude Include="src\Player\CameraController.h" />
     <ClInclude Include="src\Player\States\RunState.h" />
     <ClInclude Include="src\Player\States\IdleState.h" />
@@ -197,6 +202,7 @@
     <ClInclude Include="Dependencies\include\imgui\ImZoomSlider.h" />
     <ClInclude Include="src\JSON\JSON.h" />
     <ClInclude Include="src\Player\PlayerData.h" />
+    <ClInclude Include="src\WorldObjectFactory\WorldObjectFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
