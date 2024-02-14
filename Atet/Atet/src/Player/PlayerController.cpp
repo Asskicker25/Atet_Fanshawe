@@ -115,6 +115,7 @@ void Player::PlayerController::OnPropertyDraw()
 
 	ImGuiUtils::DrawFloat("FaceDir", mPlayerFaceDir);
 	ImGuiUtils::DrawFloat("MoveDir", mMoveDir);
+	ImGuiUtils::DrawFloat("RotLerpSpeed", mRotLerpSpeed);
 
 	ImGui::TreePop();
 }

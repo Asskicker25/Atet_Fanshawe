@@ -111,6 +111,13 @@ glm::vec3 MathUtilities::MathUtils::Lerp(const glm::vec3& start, const glm::vec3
 	return start + t * (end - start);
 }
 
+float MathUtilities::MathUtils::Lerp(const float& start, const float& end, float t)
+{
+	t = glm::clamp(t, 0.0f, 1.0f);
+
+	return start + t * (end - start);
+}
+
 double MathUtilities::MathUtils::CalculateTForSpeed(double currentT, double deltaTime, double lerpSpeed)
 {
 	double step = lerpSpeed * deltaTime;

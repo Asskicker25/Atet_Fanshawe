@@ -1,6 +1,8 @@
+#include <Graphics/Timer.h>
+#include <Graphics/MathUtils.h>
+
 #include "RunState.h"
 #include "../PlayerController.h"
-#include <Graphics/Timer.h>
 
 void Player::RunState::OnKeyPressed(const int& key)
 {
@@ -79,10 +81,16 @@ void Player::RunState::HandleRotation()
 
 
 	float rotationY = mPlayerController->mCurrentAxis == ePlayerAxis::X ?
-		mPlayerController->mPlayerFaceDir == 1 ? 90 : -90 :
+		mPlayerController->mPlayerFaceDir == 1 ? 89 : -89 :
 		mPlayerController->mPlayerFaceDir == 1 ? 0 : 180;
 
-	mPlayerController->transform.SetRotation(glm::vec3(0, rotationY, 0));
+
+	/*float newRotationY = MathUtilities::MathUtils::Lerp(mPlayerController->transform.rotation.y, rotationY, 
+		Timer::GetInstance().deltaTime * mPlayerController->mRotLerpSpeed);*/
+
+	glm::vec3 newRotation = glm::vec3(0, rotationY, 0);
+
+	mPlayerController->transform.SetRotation(newRotation);
 
 }
 

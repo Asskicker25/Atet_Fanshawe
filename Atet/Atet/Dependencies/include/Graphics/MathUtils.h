@@ -14,6 +14,7 @@ namespace MathUtilities
 		static const float GetRandomFloatNumber(float minValue, float maxValue);
 		static const int GetRandomIntNumber(int minValue, int maxValue);
 		static glm::vec3 Lerp(const glm::vec3& start, const glm::vec3& end, float t);
+		static float Lerp(const float& start, const float& end, float t);
 		static double CalculateTForSpeed(double currentT, double deltaTime, double lerpSpeed);
 	};
 
