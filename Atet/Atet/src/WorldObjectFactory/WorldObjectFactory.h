@@ -1,5 +1,6 @@
 #pragma once
-#include "../WorldObjectFactory/BaseWorldObject.h"
+
+#include "BaseWorldObject.h"
 
 class WorldObjectFactory
 {
@@ -8,16 +9,15 @@ public:
 	WorldObjectFactory();
 
 	BaseWorldObject* CreateFloor(int type = 0);
-
-
+	BaseWorldObject* CreateAxisChanger();
 
 private:
 
 	void CachedModels();
 
-
-	BaseWorldObject* floorModelOne = nullptr;
-	BaseWorldObject* floorModelTwo = nullptr;
+	BaseWorldObject* mAxisChanger	= nullptr;
+	BaseWorldObject* mFloorModelOne = nullptr;
+	BaseWorldObject* mFloorModelTwo = nullptr;
 
 
 };

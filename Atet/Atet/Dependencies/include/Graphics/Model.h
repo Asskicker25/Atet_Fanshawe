@@ -50,6 +50,7 @@ public:
 	bool isActive = true;
 	bool isWireframe = false;
 	bool isGizmoItem = false;
+	bool applyGizmoScale = true;
 
 	std::vector<MeshAndMaterial*> meshes;
 	std::vector<Texture*> texturesLoaded;

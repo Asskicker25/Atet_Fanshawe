@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Player\States\AxisChangeState.cpp" />
+    <ClCompile Include="src\Player\States\CollisionState.cpp" />
+    <ClCompile Include="src\WorldObjectFactory\AxisChanger.cpp" />
     <ClCompile Include="src\WorldObjectFactory\Floor.cpp" />
     <ClCompile Include="src\WorldObjectFactory\BaseWorldObject.cpp" />
     <ClCompile Include="src\Player\CameraController.cpp" />
@@ -168,6 +171,9 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\States\AxisChangeState.h" />
+    <ClInclude Include="src\Player\States\CollisionState.h" />
+    <ClInclude Include="src\WorldObjectFactory\AxisChanger.h" />
     <ClInclude Include="src\Player\ePlayerAxis.h" />
     <ClInclude Include="src\WorldObjectFactory\Floor.h" />
     <ClInclude Include="src\WorldObjectFactory\BaseWorldObject.h" />

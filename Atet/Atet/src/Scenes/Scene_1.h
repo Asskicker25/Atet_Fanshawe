@@ -15,6 +15,6 @@ class Scene_1 : public BaseScene
 
 private:
 
-	WorldObjectFactory* m_Floor = new WorldObjectFactory();
+	WorldObjectFactory* worldFactory = new WorldObjectFactory();
 };
 

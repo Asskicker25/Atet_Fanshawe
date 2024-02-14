@@ -7,6 +7,7 @@
 #include "PlayerData.h"
 #include "States/BaseState.h"
 #include "CameraController.h"
+#include "../WorldObjectFactory/AxisChanger.h"
 
 namespace Player
 {
@@ -17,6 +18,7 @@ namespace Player
 		PlayerController();
 
 		void AddState(ePlayerState stateType, BaseState* state);
+		void AddAlwaysState(BaseState* state);
 		void RemoveState(ePlayerState state);
 		void ChangeState(ePlayerState state);
 
@@ -26,6 +28,8 @@ namespace Player
 		void Update(float deltaTime) override;
 		void Render() override;
 		void OnPropertyDraw() override;
+
+		void ChangeAxis(ePlayerAxis axis);
 
 		float mPlayerFaceDir = 1;
 		float mMoveDir = 0;
@@ -37,6 +41,8 @@ namespace Player
 
 		CameraController* mCameraController = nullptr;
 
+		AxisChanger* mCurrentAxisChanger = nullptr;
+
 	private:
 
 		int mCurrentStateInt = 0;
@@ -45,10 +51,8 @@ namespace Player
 
 		const char* stateStrings[2] = { "IDLE", "RUN" };
 		const char* axisStrings[2] = { "X", "Z" };
-
-
-
-
+		
+		std::vector<BaseState*> mListOfAlwaysStates;
 		std::unordered_map<ePlayerState, BaseState*> mListOfStates;
 
 	};

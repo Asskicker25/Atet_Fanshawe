@@ -1,7 +1,7 @@
 #pragma once
-#include <Graphics/Model.h>
+#include <Physics/PhysicsObject.h>
 
-class BaseWorldObject : public Model
+class BaseWorldObject : public PhysicsObject
 {
 
 public:

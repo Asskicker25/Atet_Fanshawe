@@ -189,6 +189,9 @@ Model* Model::CopyFromModel(const Model& model, bool initialize)
 	isActive = model.isActive;
 	directory = model.directory;
 	transform = model.transform;
+	shader = model.shader;
+	isGizmoItem = model.isGizmoItem;
+	applyGizmoScale = model.applyGizmoScale;
 	//material = model.material;
 
 	for (MeshAndMaterial* mesh : model.meshes)

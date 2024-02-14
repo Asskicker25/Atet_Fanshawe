@@ -147,7 +147,10 @@ void Renderer::Draw(bool viewport)
 		{
 			if (viewport)
 			{
-				nonBlendModelAndShaders[i]->transform.SetScale(glm::vec3(gizmoIconSize));
+				if (nonBlendModelAndShaders[i]->applyGizmoScale)
+				{
+					nonBlendModelAndShaders[i]->transform.SetScale(glm::vec3(gizmoIconSize));
+				}
 				nonBlendModelAndShaders[i]->Draw(nonBlendModelAndShaders[i]->shader);
 			}
 
@@ -173,7 +176,10 @@ void Renderer::Draw(bool viewport)
 		{
 			if (viewport)
 			{
-				model->transform.SetScale(glm::vec3(gizmoIconSize));
+				if (model->applyGizmoScale)
+				{
+					model->transform.SetScale(glm::vec3(gizmoIconSize));
+				}
 				model->Draw(model->shader);
 			}
 
@@ -195,7 +201,10 @@ void Renderer::Draw(bool viewport)
 		{
 			if (viewport)
 			{
-				tempSelectedModel->transform.SetScale(glm::vec3(gizmoIconSize));
+				if (tempSelectedModel->applyGizmoScale)
+				{
+					tempSelectedModel->transform.SetScale(glm::vec3(gizmoIconSize));
+				}
 				tempSelectedModel->Draw(tempSelectedModel->shader);
 			}
 

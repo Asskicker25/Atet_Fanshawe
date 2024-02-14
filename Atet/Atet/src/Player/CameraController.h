@@ -31,7 +31,7 @@ namespace Player
 
 		float mTimeStep = 0;
 		float mDistance = 7;
-		float mPosLerpSpeed = 10;
+		float mPosLerpSpeed = 8;
 		float mRotLerpSpeed = 100;
 		float mColumnWidth = 150;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../WorldObjectFactory/BaseWorldObject.h"
+#include "BaseWorldObject.h"
 
 class Floor :public BaseWorldObject
 {
