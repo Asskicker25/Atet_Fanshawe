@@ -137,6 +137,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Dependencies\include\Graphics\ApplicationWindow.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\BaseMaterial.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Camera.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\CameraSystem.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\CubeMapTexture.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\DebugCubeData.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Debugger.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\DebugLineData.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\DebugModels.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\EntityManager\Entity.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\EntityManager\EntityManager.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\FrameBuffer.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\GameCamera.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\IndexBuffer.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\InputManager\InputManager.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Light.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\LightManager.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Material.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\MathUtils.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Mesh.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\MeshDataHolder.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Model.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Object.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Renderer.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\RenderQuad.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Scene\BaseScene.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Scene\SceneManager.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\SkyBoxMaterial.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\TextureData.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Timer.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Transform.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\UnlitColorMaterial.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\Vertex.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\VertexArray.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="Dependencies\include\Graphics\VertexLayout.cpp" />
     <ClCompile Include="src\Player\States\AxisChangeState.cpp" />
     <ClCompile Include="src\Player\States\CollisionState.cpp" />
     <ClCompile Include="src\WorldObjectFactory\AxisChanger.cpp" />
@@ -171,6 +207,45 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\include\Graphics\ApplicationWindow.h" />
+    <ClInclude Include="Dependencies\include\Graphics\BaseMaterial.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Camera.h" />
+    <ClInclude Include="Dependencies\include\Graphics\CameraSystem.h" />
+    <ClInclude Include="Dependencies\include\Graphics\CubeMapTexture.h" />
+    <ClInclude Include="Dependencies\include\Graphics\DebugCubeData.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Debugger.h" />
+    <ClInclude Include="Dependencies\include\Graphics\DebugLineData.h" />
+    <ClInclude Include="Dependencies\include\Graphics\DebugModels.h" />
+    <ClInclude Include="Dependencies\include\Graphics\EntityManager\Entity.h" />
+    <ClInclude Include="Dependencies\include\Graphics\EntityManager\EntityManager.h" />
+    <ClInclude Include="Dependencies\include\Graphics\FrameBuffer.h" />
+    <ClInclude Include="Dependencies\include\Graphics\GameCamera.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Image.h" />
+    <ClInclude Include="Dependencies\include\Graphics\IndexBuffer.h" />
+    <ClInclude Include="Dependencies\include\Graphics\InputManager\iInputListener.h" />
+    <ClInclude Include="Dependencies\include\Graphics\InputManager\InputManager.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Light.h" />
+    <ClInclude Include="Dependencies\include\Graphics\LightManager.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Material.h" />
+    <ClInclude Include="Dependencies\include\Graphics\MathUtils.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Mesh.h" />
+    <ClInclude Include="Dependencies\include\Graphics\MeshDataHolder.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Model.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Object.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Renderer.h" />
+    <ClInclude Include="Dependencies\include\Graphics\RenderQuad.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Scene\BaseScene.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Scene\SceneManager.h" />
+    <ClInclude Include="Dependencies\include\Graphics\SkyBoxMaterial.h" />
+    <ClInclude Include="Dependencies\include\Graphics\TextureData.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Timer.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Transform.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Triangle.h" />
+    <ClInclude Include="Dependencies\include\Graphics\UnlitColorMaterial.h" />
+    <ClInclude Include="Dependencies\include\Graphics\Vertex.h" />
+    <ClInclude Include="Dependencies\include\Graphics\VertexArray.h" />
+    <ClInclude Include="Dependencies\include\Graphics\VertexBuffer.h" />
+    <ClInclude Include="Dependencies\include\Graphics\VertexLayout.h" />
     <ClInclude Include="src\Player\States\AxisChangeState.h" />
     <ClInclude Include="src\Player\States\CollisionState.h" />
     <ClInclude Include="src\WorldObjectFactory\AxisChanger.h" />
@@ -214,4 +289,61 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+
+<PropertyGroup>
+<outputFile>$(OutDir)</outputFile>
+ <JsonConfig> $(OutDir)Assets\JsonConfig</JsonConfig>
+ <PlayerFile> $(OutDir)Assets\Models\Player\</PlayerFile>
+ <ModelFile> $(OutDir)res\Models\</ModelFile>
+  <ShaderFile> $(OutDir)res\Shader\</ShaderFile>
+  <PostprocessingFile> $(OutDir)res\Shader\PostProcessing\</PostprocessingFile>
+  <DefaultTextureFiles> $(OutDir)res\Textures\DefaultTextures\</DefaultTextureFiles>
+  <IconsTextureFiles> $(OutDir)res\Textures\Icons\</IconsTextureFiles>
+  <SkyBoxTextureFiles> $(OutDir)res\Textures\SkyBox\</SkyBoxTextureFiles>
+  
+  </PropertyGroup>
+
+   <ItemGroup>
+<JsonConfigCopyFile Include="Assets\JsonConfig\**"/>
+<PlayerModelCopy Include="Assets\Models\Player\**"/>
+<ModelFilesCopy Include="res\Models\**"/>
+<ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**"/>
+<PostprocessingFilesCopy Include="res\Shader\PostProcessing\**"/>
+<DefaultTextureFilesCopy Include="res\Textures\DefaultTextures\**"/>
+<IconTextureFilesCopy Include="res\Textures\Icons\**"/>
+<SkyboxFilesCopy Include="res\Textures\SkyBox\**"/>
+<assimpDLLCopyFile Include="assimp-vc143-mtd.dll"/>
+<imGuiDefault Include="imgui.ini"/>
+
+</ItemGroup>
+
+ <Target Name="CustomBuild">
+   <MakeDir Directories="$(outputFile)" />
+   <MakeDir Directories="$(JsonConfig)" />
+   <MakeDir Directories="$(PlayerFile)" />
+   <MakeDir Directories="$(ModelFile)" />
+   <MakeDir Directories="$(ShaderFile)" />
+   <MakeDir Directories="$(PostprocessingFile)" />
+   <MakeDir Directories="$(DefaultTextureFiles)" />
+   <MakeDir Directories="$(IconsTextureFiles)" />
+   <MakeDir Directories="$(SkyBoxTextureFiles)" />
+
+<Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
+<Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
+<Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
+<Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
+<Copy SourceFiles="@(PostprocessingFilesCopy)" DestinationFolder="$(PostprocessingFile)" />
+<Copy SourceFiles="@(DefaultTextureFilesCopy)" DestinationFolder="$(DefaultTextureFiles)" />
+<Copy SourceFiles="@(IconTextureFilesCopy)" DestinationFolder="$(IconsTextureFiles)" />
+<Copy SourceFiles="@(SkyboxFilesCopy)" DestinationFolder="$(SkyBoxTextureFiles)" />
+<Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
+<Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
+
+</Target>
+
+<Target Name="AfterBuild" DependsOnTargets="CustomBuild" Condition="'$(Configuration)'=='Debug'">
+    <Message Text="Atet Application Built Successfully" />
+</Target>
+
+
 </Project>
