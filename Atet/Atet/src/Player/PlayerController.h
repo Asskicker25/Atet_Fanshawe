@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Physics/PhysicsObject.h>
+#include <Animation/PhysicsSkeletonObject.h>
 
 #include "ePlayerAxis.h"
 #include "States/ePlayerState.h"
@@ -9,9 +10,10 @@
 #include "CameraController.h"
 #include "../WorldObjectFactory/AxisChanger.h"
 
+
 namespace Player
 {
-	class PlayerController : public PhysicsObject
+	class PlayerController : public PhysicsSkeletonObject
 	{
 	public:
 
@@ -25,6 +27,7 @@ namespace Player
 		BaseState* GetState(ePlayerState state);
 		BaseState* GetCurrentState();
 
+		void Start() override;
 		void Update(float deltaTime) override;
 		void Render() override;
 		void OnPropertyDraw() override;

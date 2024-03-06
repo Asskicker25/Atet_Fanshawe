@@ -24,6 +24,7 @@ Player::RunState::RunState()
 
 void Player::RunState::Start()
 {
+	mPlayerController->PlayAnimation("Run");
 }
 
 void Player::RunState::Update()

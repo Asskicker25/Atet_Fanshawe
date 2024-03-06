@@ -17,6 +17,9 @@ PlayerController::PlayerController()
 	userData = this;
 
 	LoadModel(mPlayerData.modelPath);
+
+	shader = Renderer::GetInstance().skeletalAnimShader;
+
 	transform.SetRotation(glm::vec3(0, 90, 0));
 	transform.SetScale(glm::vec3(0.01));
 
@@ -25,6 +28,11 @@ PlayerController::PlayerController()
 	AddState(ePlayerState::IDLE, new IdleState());
 	AddState(ePlayerState::RUN, new RunState());
 	AddState(ePlayerState::AXIS_CHANGE, new AxisChangeState());
+
+	LoadAndAddAnimationClip("Assets/Animation/Player_Run.fbx", "Run");
+	LoadAndAddAnimationClip("Assets/Animation/Player_Idle.fbx", "Idle");
+
+	mIsPlaying = true;
 
 	AddAlwaysState(new CollisionState());
 
@@ -61,6 +69,8 @@ void Player::PlayerController::ChangeState(ePlayerState state)
 	mCurrentStateInt = (int)mCurrentState;
 
 	GetCurrentState()->Start();
+
+
 }
 
 BaseState* Player::PlayerController::GetState(ePlayerState state)
@@ -73,8 +83,14 @@ BaseState* Player::PlayerController::GetCurrentState()
 	return mListOfStates[mCurrentState];
 }
 
+void Player::PlayerController::Start()
+{
+	GetCurrentState()->Start();
+}
+
 void Player::PlayerController::Update(float deltaTime)
 {
+	PhysicsSkeletonObject::Update(deltaTime);
 	GetCurrentState()->Update();
 
 	for (BaseState* state : mListOfAlwaysStates)

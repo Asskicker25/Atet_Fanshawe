@@ -21,6 +21,9 @@ namespace Player
 		void OnKeyPressed(const int& key) override;
 		void OnKeyReleased(const int& key) override;
 		void OnKeyHeld(const int& key) override;
+
+	private:
+		bool mStateEnabled = false;
 	};
 }
 

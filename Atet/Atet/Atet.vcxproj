@@ -272,28 +272,6 @@
 
 </Target>
 
-<Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
-    <Message Text="Atet Application Build Successfully" />
-    <!--All lossless pngs-->
-    <ItemGroup>
-        <PngFiles Include="$(OutDir)\**\*.png" />
-    </ItemGroup>
 
-       <!-- Lossy Compression with pngquant -->
-    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="false" ConsoleToMSBuild="false" />
-
-    <!-- Lossless Compression with optipng -->
-    <Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="false" />
-
-     <!-- Convert to PVR with PVRTexToolCLI -->
-     <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="true" />
-
-</Target>
 
 </Project>
