@@ -214,4 +214,86 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+
+
+<PropertyGroup>
+<outputFile>$(OutDir)</outputFile>
+ <JsonConfig> $(OutDir)Assets\JsonConfig</JsonConfig>
+ <PlayerFile> $(OutDir)Assets\Models\Player\</PlayerFile>
+  <PlayerTextureFile> $(OutDir)Assets\Models\Player\Player.fbm\</PlayerTextureFile>
+ <ModelFile> $(OutDir)res\Models\</ModelFile>
+  <ShaderFile> $(OutDir)res\Shader\</ShaderFile>
+  <PostprocessingFile> $(OutDir)res\Shader\PostProcessing\</PostprocessingFile>
+  <DefaultTextureFiles> $(OutDir)res\Textures\DefaultTextures\</DefaultTextureFiles>
+  <IconsTextureFiles> $(OutDir)res\Textures\Icons\</IconsTextureFiles>
+  <SkyBoxTextureFiles> $(OutDir)res\Textures\SkyBox\</SkyBoxTextureFiles>
+  
+  </PropertyGroup>
+
+   <ItemGroup>
+<JsonConfigCopyFile Include="Assets\JsonConfig\**"/>
+<PlayerModelCopy Include="Assets\Models\Player\**"  Exclude="Assets\Models\Player\Player.fbm\**"/>
+<PlayerModeltexturesCopy Include="Assets\Models\Player\Player.fbm\**"/>
+<ModelFilesCopy Include="res\Models\**"/>
+<ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**"/>
+<PostprocessingFilesCopy Include="res\Shader\PostProcessing\**"/>
+<DefaultTextureFilesCopy Include="res\Textures\DefaultTextures\**"/>
+<IconTextureFilesCopy Include="res\Textures\Icons\**"/>
+<SkyboxFilesCopy Include="res\Textures\SkyBox\**"/>
+<assimpDLLCopyFile Include="assimp-vc143-mtd.dll"/>
+<imGuiDefault Include="imgui.ini"/>
+
+</ItemGroup>
+
+ <Target Name="AtetBuild">
+   <MakeDir Directories="$(outputFile)" />
+   <MakeDir Directories="$(JsonConfig)" />
+   <MakeDir Directories="$(PlayerFile)" />
+   <MakeDir Directories="$(PlayerTextureFile)" />
+   <MakeDir Directories="$(ModelFile)" />
+   <MakeDir Directories="$(ShaderFile)" />
+   <MakeDir Directories="$(PostprocessingFile)" />
+   <MakeDir Directories="$(DefaultTextureFiles)" />
+   <MakeDir Directories="$(IconsTextureFiles)" />
+   <MakeDir Directories="$(SkyBoxTextureFiles)" />
+
+<Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
+<Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
+<Copy SourceFiles="@(PlayerModeltexturesCopy)" DestinationFolder="$(PlayerTextureFile)" />
+<Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
+<Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
+<Copy SourceFiles="@(PostprocessingFilesCopy)" DestinationFolder="$(PostprocessingFile)" />
+<Copy SourceFiles="@(DefaultTextureFilesCopy)" DestinationFolder="$(DefaultTextureFiles)" />
+<Copy SourceFiles="@(IconTextureFilesCopy)" DestinationFolder="$(IconsTextureFiles)" />
+<Copy SourceFiles="@(SkyboxFilesCopy)" DestinationFolder="$(SkyBoxTextureFiles)" />
+<Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
+<Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
+
+
+</Target>
+
+<Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
+    <Message Text="Atet Application Build Successfully" />
+    <!--All lossless pngs-->
+    <ItemGroup>
+        <PngFiles Include="$(OutDir)\**\*.png" />
+    </ItemGroup>
+
+       <!-- Lossy Compression with pngquant -->
+    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"' 
+          Condition="Exists('%(PngFiles.Identity)')" 
+          ContinueOnError="false" ConsoleToMSBuild="false" />
+
+    <!-- Lossless Compression with optipng -->
+    <Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
+          Condition="Exists('%(PngFiles.Identity)')" 
+          ContinueOnError="false" />
+
+     <!-- Convert to PVR with PVRTexToolCLI -->
+     <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
+          Condition="Exists('%(PngFiles.Identity)')" 
+          ContinueOnError="true" />
+
+</Target>
+
 </Project>
