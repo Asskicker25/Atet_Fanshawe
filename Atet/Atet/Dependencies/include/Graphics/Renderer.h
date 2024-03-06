@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Debugger.h"
-#include "VertexArray.h"
-#include "IndexBuffer.h"
-#include "Model.h"
-#include "Camera.h"
-#include "DebugModels.h"
+#include "Buffer/VertexArray.h"
+#include "Buffer/IndexBuffer.h"
+#include "Mesh/Model.h"
+#include "Camera/Camera.h"
+#include "Mesh/DebugModels.h"
 
 enum RenderMode
 {
@@ -53,6 +53,8 @@ private :
 	glm::vec3 normalsScale = glm::vec3(0.001f, 0.1f, 0.001f);
 
 	float outlineScaleValue = 0.05f;
+	float gizmoScaleMultiplier = 1;
+	float gizmoScaleDownMultiplier = 0.3f;
 
 public:
 
@@ -61,6 +63,8 @@ public:
 	Shader* solidColorShader;
 	Shader* alphaBlendShader;
 	Shader* alphaCutOutShader;
+	Shader* defInstanceShader;
+	Shader* skeletalAnimShader;
 
 	Camera* camera = nullptr;
 
@@ -69,6 +73,7 @@ public:
 	Material* normalsMaterial;
 
 	Model* skyBox;
+	Model* line;
 
 	DebugModels* debugCubesModel;
 	DebugModels* debugCubesData;

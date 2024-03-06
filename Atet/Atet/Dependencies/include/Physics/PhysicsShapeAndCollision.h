@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <Graphics/Renderer.h>
 
+#define NOMINMAX
+
 class HierarchicalAABBNode;
 
 enum PhysicsShape
@@ -34,6 +36,16 @@ struct iShape
 	virtual ~iShape() {}
 
 };
+
+static bool HasNaN(const glm::vec3& vec) 
+{
+	for (int i = 0; i < 3; ++i) {
+		if (std::isnan(vec[i])) {
+			return true;
+		}
+	}
+	return false;
+}
 
 struct Aabb : public iShape
 {
@@ -275,8 +287,12 @@ static bool CollisionSpherevsAABB(Sphere* sphere, const Aabb& aabb, bool isSpher
 			collisonNr = glm::normalize(collisonNr);
 		}
 
+		if (!HasNaN(collisonNr))
+		{
+			collisionNormal.push_back(collisonNr);
+		}
+
 		collisionPoint.push_back(collisionPt);
-		collisionNormal.push_back(collisonNr);
 
 		return true;
 	}

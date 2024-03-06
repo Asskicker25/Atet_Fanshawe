@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Graphics/EntityManager/EntityManager.h>
-#include <Graphics/CameraSystem.h>
+#include <Graphics/Camera/CameraSystem.h>
 
 
 namespace Player

@@ -12,5 +12,9 @@ class Atet_Application : public ApplicationWindow
 	void ProcessInput(GLFWwindow* window) override;
 	void KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods) override;
 	void MouseButtonCallback(GLFWwindow* window, int& button, int& action, int& mods) override;
+
+	// Inherited via ApplicationWindow
+	void Shutdown() override;
+	void OnPlayStateChanged(bool state) override;
 };
 

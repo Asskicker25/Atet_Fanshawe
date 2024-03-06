@@ -1,6 +1,7 @@
 #include "Renderer.h"
-#include "UnlitColorMaterial.h"
-#include "DebugLineData.h"
+#include "Material/UnlitColorMaterial.h"
+#include "Mesh/DebugLineData.h"
+#include "Camera/CameraSystem.h"
 
 Renderer& Renderer::GetInstance()
 {
@@ -28,6 +29,13 @@ void Renderer::Initialize()
 	wireframeMaterial->SetBaseColor(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 	normalsMaterial->SetBaseColor(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
+	line = new Model();
+
+	DebugLineData lineData;
+	lineData.SetStartPoint(glm::vec3(0));
+	lineData.SetEndPoint(glm::vec3(1));
+
+	line->LoadModel(lineData, true);
 }
 
 void Renderer::Clear()
@@ -47,11 +55,11 @@ void Renderer::ClearModelList()
 
 void Renderer::AddModel(Model* model)
 {
-	if (model->shader->blendMode == OPAQUE || model->shader->blendMode == ALPHA_CUTOUT)
+	if (model->shader->blendMode == Shader::ALPHA_OPAQUE || model->shader->blendMode == Shader::ALPHA_CUTOUT)
 	{
 		nonBlendModelAndShaders.push_back(model);
 	}
-	else if (model->shader->blendMode == ALPHA_BLEND)
+	else if (model->shader->blendMode == Shader::ALPHA_BLEND)
 	{
 		blendModelAndShaders.push_back(model);
 	}
@@ -59,11 +67,11 @@ void Renderer::AddModel(Model* model)
 
 void Renderer::AddModel(Model& model)
 {
-	if (model.shader->blendMode == OPAQUE || model.shader->blendMode == ALPHA_CUTOUT)
+	if (model.shader->blendMode == Shader::ALPHA_OPAQUE || model.shader->blendMode == Shader::ALPHA_CUTOUT)
 	{
 		nonBlendModelAndShaders.push_back(&model);
 	}
-	else if (model.shader->blendMode == ALPHA_BLEND)
+	else if (model.shader->blendMode == Shader::ALPHA_BLEND)
 	{
 		blendModelAndShaders.push_back(&model);
 	}
@@ -135,6 +143,11 @@ void Renderer::Draw(bool viewport)
 
 	Model* tempSelectedModel = nullptr;
 
+	gizmoScaleMultiplier = 1;
+
+	glm::vec3 viewportPos = CameraSystem::GetInstance().viewportCamera->transform.position;
+		
+
 	for (unsigned int i = 0; i < nonBlendModelAndShaders.size(); i++)
 	{
 		if (selectedModel != nullptr && nonBlendModelAndShaders[i] == selectedModel)
@@ -149,7 +162,11 @@ void Renderer::Draw(bool viewport)
 			{
 				if (nonBlendModelAndShaders[i]->applyGizmoScale)
 				{
-					nonBlendModelAndShaders[i]->transform.SetScale(glm::vec3(gizmoIconSize));
+					glm::vec3 diff = viewportPos - nonBlendModelAndShaders[i]->transform.position;
+					gizmoScaleMultiplier = glm::length(diff);
+					gizmoScaleMultiplier *= gizmoScaleDownMultiplier;
+
+					nonBlendModelAndShaders[i]->transform.SetScale(glm::vec3(gizmoIconSize) * gizmoScaleMultiplier);
 				}
 				nonBlendModelAndShaders[i]->Draw(nonBlendModelAndShaders[i]->shader);
 			}
@@ -178,7 +195,11 @@ void Renderer::Draw(bool viewport)
 			{
 				if (model->applyGizmoScale)
 				{
-					model->transform.SetScale(glm::vec3(gizmoIconSize));
+					glm::vec3 diff = viewportPos - model->transform.position;
+					gizmoScaleMultiplier = glm::length(diff);
+					gizmoScaleMultiplier *= gizmoScaleDownMultiplier;
+
+					model->transform.SetScale(glm::vec3(gizmoIconSize * gizmoScaleMultiplier));
 				}
 				model->Draw(model->shader);
 			}
@@ -203,7 +224,11 @@ void Renderer::Draw(bool viewport)
 			{
 				if (tempSelectedModel->applyGizmoScale)
 				{
-					tempSelectedModel->transform.SetScale(glm::vec3(gizmoIconSize));
+					glm::vec3 diff = viewportPos - tempSelectedModel->transform.position;
+					gizmoScaleMultiplier = glm::length(diff);
+					gizmoScaleMultiplier *= gizmoScaleDownMultiplier;
+
+					tempSelectedModel->transform.SetScale(glm::vec3(gizmoIconSize * gizmoScaleMultiplier));
 				}
 				tempSelectedModel->Draw(tempSelectedModel->shader);
 			}
@@ -316,15 +341,13 @@ void Renderer::DrawSphere(const glm::vec3 center, float radius, glm::vec4 color)
 
 void Renderer::DrawLine(const glm::vec3 startPoint, const glm::vec3 endPoint, glm::vec4 color)
 {
-	Model line;
+	line->meshes[0]->mesh->vertices[0].positions = startPoint;
+	line->meshes[0]->mesh->vertices[1].positions = endPoint;
+	line->meshes[0]->mesh->vertices[2].positions = endPoint;
 
-	DebugLineData lineData;
-	lineData.SetStartPoint(startPoint);
-	lineData.SetEndPoint(endPoint);
+	line->meshes[0]->mesh->UpdateVertices();
 
-	line.LoadModel(lineData, true);
-
-	line.DrawWireframe(color);
+	line->DrawWireframe(color);
 
 }
 

@@ -1,9 +1,10 @@
 #pragma once
 
 #include "PhysicsObject.h"
+#include "Softbody/BaseSoftBody.h"
+#include <Windows.h>
 
-
-class PhysicsEngine		
+class PhysicsEngine
 {
 private:
 	float timer = 0;
@@ -11,9 +12,13 @@ private:
 	std::vector<PhysicsObject*> physicsObjects;
 	std::vector<glm::vec3> collisionPoints;
 	std::vector<Model*> debugSpheres;
- 	
-	void UpdatePhysics(float deltaTime);
 
+	std::vector<BaseSoftBody*> listOfSoftBodies;
+
+	CRITICAL_SECTION* softBody_CritSection = nullptr;
+
+	void UpdatePhysics(float deltaTime);
+ 	
 public:
 	float fixedStepTime = 0.01f;
 	glm::vec3 gravity = glm::vec3(0, -9.8f / 3.0f, 0);
@@ -27,8 +32,16 @@ public:
 		std::vector<glm::vec3>& collisionPoint,
 		std::vector<glm::vec3>& collisionNormal);
 
+	void AddSoftBodyObject(BaseSoftBody* softBody);
+	void RemoveSoftBodyObject(BaseSoftBody* softBody);
+
 	void Update(float deltaTime);
+	void UpdateSoftBodies(float deltaTime, CRITICAL_SECTION& criticalSection);
+	void UpdateSoftBodyBufferData();
 	void SetDebugSpheres(Model* model, int count);
+
+
+	void Shutdown();
 };
 
 

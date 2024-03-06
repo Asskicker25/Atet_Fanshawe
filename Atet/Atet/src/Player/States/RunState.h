@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Graphics/InputManager/InputManager.h>
-#include <Graphics/CameraSystem.h>
+#include <Graphics/Camera/CameraSystem.h>
 #include "BaseState.h"
 
 namespace Player

@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "../LightManager.h"
+#include "../Light/LightManager.h"
 #include "ShaderSystem.h"
 
 ShaderSource ParseShader(const std::string& path)
@@ -7,7 +7,7 @@ ShaderSource ParseShader(const std::string& path)
 	std::fstream file;
 	std::string line;
 	std::stringstream sstream[2];
-	ShaderType currentType = NONE;
+	Shader::ShaderType currentType = Shader::ShaderType::NONE;
 	file.open(path);
 
 	if (file.is_open())
@@ -20,15 +20,15 @@ ShaderSource ParseShader(const std::string& path)
 
 			if (line.find("#vertex") != std::string::npos)
 			{
-				currentType = VERTEX_SHADER;
+				currentType = Shader::ShaderType::VERTEX_SHADER;
 			}
 			else if (line.find("#fragment") != std::string::npos)
 			{
-				currentType = FRAGMENT_SHADER;
+				currentType = Shader::ShaderType::FRAGMENT_SHADER;
 			}
 			else
 			{
-				sstream[currentType] << line << std::endl;
+				sstream[(int)currentType] << line << std::endl;
 			}
 		}
 	}
@@ -166,6 +166,12 @@ void Shader::SetUniform3f(const std::string& property, float x, float y, float z
 void Shader::SetUniform4f(const std::string& property, float x, float y, float z, float w)
 {
 	GLCALL(glUniform4f(GetLocation(property), x, y, z, w));
+}
+
+void Shader::SetUniformMatrix4fv(const std::string& property, unsigned int count, bool transpose, const float* value)
+{
+	GLCALL(glUniformMatrix4fv(GetLocation(property), count, transpose, value));
+
 }
 
 void Shader::SetUniform1i(const std::string& property, int slot)

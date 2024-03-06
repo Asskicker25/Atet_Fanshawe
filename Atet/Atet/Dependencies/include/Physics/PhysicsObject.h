@@ -1,12 +1,14 @@
 #pragma once
 
-#include <Graphics/Model.h>
+#include <Graphics/Mesh/Model.h>
 #include <functional>
 
 #include "PhysicsShapeAndCollision.h"
 #include "iPhysicsTransformable.h"
 #include "PhysicsProperties.h"
 #include "HierarchicalAABB.h"
+
+#define NOMINMAX
 
 
 class PhysicsObject : public Model, public iPhysicsTransformable

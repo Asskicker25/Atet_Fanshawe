@@ -1,5 +1,5 @@
 #include "PhysicsObject.h"
-#include <Graphics/Triangle.h>
+#include <Graphics/Buffer/Triangle.h>
 #include <Graphics/Panels/ImguiDrawUtils.h>
 #include "PhysicsEngine.h"
 
@@ -98,7 +98,7 @@ void PhysicsObject::DrawPhysicsShape()
 		Renderer::GetInstance().DrawSphere(((Sphere*)GetTransformedPhysicsShape())->position,
 			((Sphere*)GetTransformedPhysicsShape())->radius, shapeColor);
 
-		Renderer::GetInstance().DrawAABB(GetGraphicsAabb(GetModelAABB()), shapeColor);
+		//Renderer::GetInstance().DrawAABB(GetGraphicsAabb(GetModelAABB()), shapeColor);
 
 		break;
 	case PLANE:
@@ -209,7 +209,6 @@ void PhysicsObject::InitializePhysics(PhysicsShape shape, PhysicsMode mode,
 	CalculatePhysicsShape();
 
 	PhysicsEngine::GetInstance().AddPhysicsObject(this);
-
 }
 
 void PhysicsObject::AssignCollisionCallback(const std::function<void(PhysicsObject*)>& collisionCallback)

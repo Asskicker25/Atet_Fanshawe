@@ -1,6 +1,10 @@
 #include "MathUtils.h"
 
 #include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtx/vector_angle.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/euler_angles.hpp>
+
 
 bool MathUtilities::MathUtils::DecomposeTransform(const glm::mat4& transform, glm::vec3& pos, glm::vec3& rotation, glm::vec3& scale)
 {
@@ -70,6 +74,25 @@ bool MathUtilities::MathUtils::DecomposeTransform(const glm::mat4& transform, gl
 		rotation.z = 0;
 	}
 
+	return true;
+}
+
+bool MathUtilities::MathUtils::DecomposeTransform_Simple(const glm::mat4& transform, glm::vec3& pos, glm::vec3& rot, glm::vec3& scale)
+{
+	
+	pos = glm::vec3(transform[3]);
+
+	glm::mat3 rotationMatrix = glm::mat3(transform);
+
+
+	// Extract euler angles from the rotation matrix in YXZ order
+	rot.y = glm::degrees(atan2(rotationMatrix[0][2], rotationMatrix[2][2])); // Yaw
+	rot.x = glm::degrees(glm::asin(-rotationMatrix[1][2])); // Pitch
+	rot.z = glm::degrees(atan2(rotationMatrix[1][0], rotationMatrix[1][1])); // Roll
+
+	scale.x = glm::length(glm::vec3(transform[0]));
+	scale.y = glm::length(glm::vec3(transform[1]));
+	scale.z = glm::length(glm::vec3(transform[2]));
 
 	return true;
 }
@@ -88,20 +111,27 @@ float MathUtilities::MathUtils::Remap(float value, float inputMin, float inputMa
 
 const float MathUtilities::MathUtils::GetRandomFloatNumber(float minValue, float maxValue)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_real_distribution<float> distribution(minValue, maxValue);
-
-	return distribution(gen);
+	float random = ((float)rand()) / (float)RAND_MAX;
+	float diff = maxValue - minValue;
+	float r = random * diff;
+	return minValue + r;
 }
 
 const int MathUtilities::MathUtils::GetRandomIntNumber(int minValue, int maxValue)
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distribution(minValue, maxValue);
+	unsigned int output = minValue + (rand() % static_cast<unsigned int>(maxValue - minValue + 1));
 
-	return distribution(gen);
+	return output;
+}
+
+const glm::vec3 MathUtilities::MathUtils::GetRandomVec3(glm::vec3 min, glm::vec3 max)
+{
+	glm::vec3 randPoint;
+	randPoint.x = GetRandomFloatNumber(min.x, max.x);
+	randPoint.y = GetRandomFloatNumber(min.y, max.y);
+	randPoint.z = GetRandomFloatNumber(min.z, max.z);
+
+	return randPoint;
 }
 
 glm::vec3 MathUtilities::MathUtils::Lerp(const glm::vec3& start, const glm::vec3& end, float t)
@@ -123,4 +153,30 @@ double MathUtilities::MathUtils::CalculateTForSpeed(double currentT, double delt
 	double step = lerpSpeed * deltaTime;
 
 	return glm::clamp(currentT + step, 0.0, 1.0);
+}
+
+glm::vec3 MathUtilities::MathUtils::GetRandomDirOnUnitCircle()
+{
+	float angle = GetRandomFloatNumber(0, glm::two_pi<float>());
+	return glm::normalize(glm::vec3(glm::cos(angle), 0.0f, glm::sin(angle)));
+}
+
+glm::vec3 MathUtilities::MathUtils::GetRandomDirOnUnitCircle(glm::vec3& up)
+{
+	glm::vec3 random2D = GetRandomDirOnUnitCircle();
+
+	return glm::normalize(glm::rotate(random2D, glm::orientedAngle(glm::vec3(0, 0, 1), up, glm::vec3(1, 0, 0)), up));
+}
+
+unsigned int  MathUtilities::MathUtils::GetHash(const std::string string)
+{
+	const char* str = string.c_str();
+	unsigned int hash = 5381;
+	int c;
+
+	while ((c = *str++)) {
+		hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+	}
+
+	return hash;
 }

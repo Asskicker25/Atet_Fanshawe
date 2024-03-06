@@ -2,13 +2,15 @@
 #include "EntityManager/EntityManager.h"
 #include "InputManager/InputManager.h"
 #include "Shaders/ShaderSystem.h"
-#include "CameraSystem.h"
+#include "Camera/CameraSystem.h"
+
+using namespace System_Particle;
 
 ApplicationWindow::ApplicationWindow()
 {
 	viewportCamera = new Camera();
 	viewportCamera->isViewPortCamera = true;
-
+	CameraSystem::GetInstance().viewportCamera = viewportCamera;
 }
 
 ApplicationWindow::~ApplicationWindow()
@@ -122,31 +124,39 @@ void ApplicationWindow::InitializeWindow(int windowWidth, int windowHeight)
 		"res/Textures/SkyBox/Back.jpg",
 		});
 
-	skyboxShader.LoadShader("res/Shader/SkyBox.shader", OPAQUE, false);
+	skyboxShader.LoadShader("res/Shader/SkyBox.shader", Shader::ALPHA_OPAQUE, false);
 	skyboxShader.applyModel = false;
 	//Debugger::Print("SkyboxShader  Id : ", skyboxShader.GetShaderId());
 
-	solidColorShader.LoadShader("res/Shader/SolidColorShader.shader", OPAQUE, false);
+	solidColorShader.LoadShader("res/Shader/SolidColorShader.shader", Shader::ALPHA_OPAQUE, false);
 	//Debugger::Print("SolidColorShader  Id : ", solidColorShader.GetShaderId());
+
 
 	defShader.LoadShader("res/Shader/Shader.shader");
 	//Debugger::Print("DefShader Shader Id : ", defShader.GetShaderId());
 	defShader.applyInverseModel = true;
 
+	skeletonAnimShader.LoadShader("res/Shader/BoneAnimation.shader");
+	skeletonAnimShader.applyInverseModel = true;
+
+	defInstanceShader.LoadShader("res/Shader/DefaultInstancing.shader", Shader::ALPHA_OPAQUE, false);
+
 	alphaBlendShader.LoadShader("res/Shader/Shader.shader");
 	//Debugger::Print("TranparentShader Shader Id : ", alphaBlendShader.GetShaderId());
-	alphaBlendShader.blendMode = ALPHA_BLEND;
+	alphaBlendShader.blendMode = Shader::ALPHA_BLEND;
 	alphaBlendShader.applyInverseModel = true;
 
 	alphaCutOutShader.LoadShader("res/Shader/Shader.shader");
 	//Debugger::Print("AlphaCutOutShader Shader Id : ", alphaCutOutShader.GetShaderId());
-	alphaCutOutShader.blendMode = ALPHA_CUTOUT;
+	alphaCutOutShader.blendMode = Shader::ALPHA_CUTOUT;
 	alphaCutOutShader.applyInverseModel = true;
 
 	Renderer::GetInstance().solidColorShader = &solidColorShader;
 	Renderer::GetInstance().defaultShader = &defShader;
 	Renderer::GetInstance().alphaBlendShader = &alphaBlendShader;
 	Renderer::GetInstance().alphaCutOutShader = &alphaCutOutShader;
+	Renderer::GetInstance().defInstanceShader = &defInstanceShader;
+	Renderer::GetInstance().skeletalAnimShader = &skeletonAnimShader;
 
 	Renderer::GetInstance().camera = viewportCamera;
 
@@ -189,12 +199,13 @@ void ApplicationWindow::EngineUpdate()
 	MoveCameraKeyBoard(window);
 	ProcessInput(window);
 
-	Scene::SceneManager::GetInstance().Update();
 
 	if (applicationPlay)
 	{
 		EntityManager::GetInstance().Update(Timer::GetInstance().deltaTime);
 		InputManager::GetInstance().Update();
+		ParticleSystemManager::GetInstance().Update(Timer::GetInstance().deltaTime);
+		Scene::SceneManager::GetInstance().Update();
 	}
 
 	Update();
@@ -265,6 +276,8 @@ void ApplicationWindow::MainLoop()
 		glfwPollEvents();
 	}
 
+	Shutdown();
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
@@ -301,9 +314,11 @@ void ApplicationWindow::RenderForCamera(Camera* camera, FrameBuffer* frameBuffer
 		Render();
 	}
 
+
 	Scene::SceneManager::GetInstance().Render();
 	Renderer::GetInstance().Draw(viewport);
 
+	ParticleSystemManager::GetInstance().Render();
 
 	if (camera->applyPostProcessing)
 	{
@@ -453,6 +468,15 @@ void ApplicationWindow::MouseHeldCallback(GLFWwindow* window, int& button, int& 
 {
 	if (stopMouseCallback) return;
 
+	if (action == GLFW_PRESS)
+	{
+		InputManager::GetInstance().OnMouseButtonPressed(button);
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		InputManager::GetInstance().OnMouseButtonReleased(button);
+	}
+
 	if (button == GLFW_MOUSE_BUTTON_2 && action == GLFW_PRESS && EditorLayout::GetInstance().IsViewportHovered())
 	{
 		mouseHeld = true;
@@ -474,8 +498,6 @@ void ApplicationWindow::InputCallback(GLFWwindow* window, int& key, int& scancod
 	{
 		InputManager::GetInstance().OnKeyReleased(key);
 	}
-	else if (action == GLFW_REPEAT)
-	{
-	}
+
 }
 

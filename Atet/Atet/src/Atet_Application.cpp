@@ -48,3 +48,11 @@ void Atet_Application::KeyCallBack(GLFWwindow* window, int& key, int& scancode, 
 void Atet_Application::MouseButtonCallback(GLFWwindow* window, int& button, int& action, int& mods)
 {
 }
+
+void Atet_Application::Shutdown()
+{
+}
+
+void Atet_Application::OnPlayStateChanged(bool state)
+{
+}

@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 #include <Graphics/Debugger.h>
+#include "PhysicsShapeAndCollision.h"
 
 
 bool PhysicsEngine::PhysicsObjectExists(PhysicsObject* physicsObject)
@@ -42,15 +43,50 @@ void PhysicsEngine::RemovePhysicsObject(PhysicsObject* physicsObject)
 	}
 }
 
+void PhysicsEngine::AddSoftBodyObject(BaseSoftBody* softBody)
+{
+	listOfSoftBodies.push_back(softBody);
+}
+
+void PhysicsEngine::RemoveSoftBodyObject(BaseSoftBody* softBody)
+{
+	listOfSoftBodies.erase(std::remove(listOfSoftBodies.begin(), listOfSoftBodies.end(), softBody), listOfSoftBodies.end());
+}
+
 void PhysicsEngine::Update(float deltaTime)
 {
 	timer += deltaTime;
+
+	if (softBody_CritSection != nullptr)
+	{
+		EnterCriticalSection(softBody_CritSection);
+		UpdateSoftBodyBufferData();
+		LeaveCriticalSection(softBody_CritSection);
+	}
 
 	if (timer >= fixedStepTime)
 	{
 		UpdatePhysics(fixedStepTime);
 
 		timer = 0;
+	}
+}
+
+void PhysicsEngine::UpdateSoftBodies(float deltaTime, CRITICAL_SECTION& criticalSection)
+{
+	softBody_CritSection = &criticalSection;
+	for (BaseSoftBody* softBody : listOfSoftBodies)
+	{
+		softBody->UpdateSoftBody(deltaTime, criticalSection);
+	}
+}
+
+void PhysicsEngine::UpdateSoftBodyBufferData()
+{
+
+	for (BaseSoftBody* softBody : listOfSoftBodies)
+	{
+		softBody->UpdateBufferData();
 	}
 }
 
@@ -63,8 +99,17 @@ void PhysicsEngine::SetDebugSpheres(Model* model, int count)
 	}
 }
 
+void PhysicsEngine::Shutdown()
+{
+	while (listOfSoftBodies.size() != 0)
+	{
+		delete listOfSoftBodies[0];
+	}
+}
+
 void PhysicsEngine::UpdatePhysics(float deltaTime)
 {
+
 	for (PhysicsObject* iteratorObject : physicsObjects)
 	{
 		if (iteratorObject->isEnabled == false)
@@ -107,8 +152,8 @@ void PhysicsEngine::UpdatePhysics(float deltaTime)
 
 			if (iteratorObject == otherObject)
 				continue;
-			
-			if (iteratorObject->CheckIfExcluding(otherObject)) 
+
+			if (iteratorObject->CheckIfExcluding(otherObject))
 				continue;
 
 
@@ -197,12 +242,11 @@ bool PhysicsEngine::HandleCollision(PhysicsObject* first, PhysicsObject* second,
 {
 	if (first->CheckCollision(second, collisionPoints, collisionNormal))
 	{
-		//first->SetVisible(false);
-		//Debugger::Print("Collision Point Count : ",(int) collisionNormal.size());
 		return true;
-		//std::cout << "COLLLLLLIIISSSSION" << std::endl;
 	}
 
 	return false;
 }
+
+
 
