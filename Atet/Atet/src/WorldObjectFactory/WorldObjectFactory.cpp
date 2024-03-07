@@ -2,6 +2,7 @@
 
 #include "Floor.h"
 #include "AxisChanger.h"
+#include "Traps/SpikeTrap.h"
 
 WorldObjectFactory::WorldObjectFactory()
 {
@@ -37,6 +38,15 @@ BaseWorldObject* WorldObjectFactory::CreateAxisChanger()
 	return newObject;
 }
 
+BaseWorldAnimatedObject* WorldObjectFactory::CreateTrap()
+{
+	BaseWorldAnimatedObject* newObject = new SpikeTrap();
+	newObject->CopyFromOther(*mSpikeTrap, true);
+	newObject->InitializePhysics(AABB, STATIC, TRIGGER);
+
+	return newObject;
+}
+
 void WorldObjectFactory::CachedModels()
 {
 	mAxisChanger = new AxisChanger("res/Models/DefaultCube.fbx", false);
@@ -53,5 +63,7 @@ void WorldObjectFactory::CachedModels()
 	mFloorModelTwo = new Floor("res/Models/DefaultQuad.fbx", false);
 	mFloorModelTwo->transform.SetScale(glm::vec3(0.1));
 
-
+	mSpikeTrap = new SpikeTrap("Assets/Models/Traps/Trap.fbx", false);
+	mSpikeTrap->shader = Renderer::GetInstance().skeletalAnimShader;
+	mSpikeTrap->LoadAndAddAnimationClip("Assets/Models/Traps/Trap.fbx", "Spike");
 }

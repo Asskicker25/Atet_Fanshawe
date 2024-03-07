@@ -111,6 +111,12 @@
     <ClCompile Include="src\Player\States\AxisChangeState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\WorldObjectFactory\Traps\SpikeTrap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldObjectFactory\BaseWorldAnimatedObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\include\imgui\imconfig.h">
@@ -228,6 +234,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Player\States\AxisChangeState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WorldObjectFactory\Traps\SpikeTrap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WorldObjectFactory\BaseWorldAnimatedObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

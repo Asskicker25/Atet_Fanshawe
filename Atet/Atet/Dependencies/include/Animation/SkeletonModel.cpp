@@ -2,6 +2,7 @@
 #include "AnimationSystem.h"
 
 #include <Graphics/MathUtils.h>
+#include <Graphics/Panels/ImguiDrawUtils.h>
 #include <Graphics/Material/UnlitColorMaterial.h>
 
 
@@ -44,17 +45,39 @@ void SkeletonModel::SetBaseColor(const glm::vec4& color)
 	}
 }
 
+void SkeletonModel::OnPropertyDraw()
+{
+	SkeletonModel::OnPropertyDraw();
+
+	if (!ImGui::TreeNodeEx("Animation", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		return;
+	}
+
+	ImGuiUtils::DrawBool("EnableControlTime", mControlTime);
+	ImGuiUtils::DrawDragFloat("ControlTime", mControlTimeParam, 0.001f, 0, 1);
+
+	ImGui::TreePop();
+}
+
 void SkeletonModel::Update(float deltaTime)
 {
 	if (!mIsPlaying) return;
 
 	if (deltaTime > 1.0f / 60.0f) { deltaTime = 1.0f / 60.0f; }
 
-	mCurrentTime += deltaTime * 1000;
-
-	if (mCurrentTime > mCurrentAnimation->mDuration)
+	if (!mControlTime)
 	{
-		mCurrentTime = 0;
+		mCurrentTime += deltaTime * 1000;
+
+		if (mCurrentTime > mCurrentAnimation->mDuration)
+		{
+			mCurrentTime = 0;
+		}
+	}
+	else
+	{
+		mCurrentTime = MathUtils::Remap(mControlTimeParam, 0, 1, 0, mCurrentAnimation->mDuration);
 	}
 
 	//Debugger::Print("Current Time :", mCurrentTime);
@@ -396,4 +419,19 @@ void SkeletonModel::PlayAnimation(const std::string& name)
 {
 	mCurrentAnimation = mListOfSkeletalAnimations[name];
 	mCurrentTime = 0;
+}
+
+SkeletonModel* SkeletonModel::CopyFromOther(const SkeletonModel& other, bool initialize)
+{
+	CopyFromModel(other, initialize);
+
+	this->mIsPlaying = other.mIsPlaying;
+	this->mCurrentTime = other.mCurrentTime;
+	this->mControlTime = other.mControlTime;
+	this->mControlTimeParam = other.mControlTimeParam;
+	this->mCurrentAnimation = other.mCurrentAnimation;
+	this->mListOfMeshRootNodes = other.mListOfMeshRootNodes;
+	this->mListOfSkeletalAnimations = other.mListOfSkeletalAnimations;
+
+	return this;
 }

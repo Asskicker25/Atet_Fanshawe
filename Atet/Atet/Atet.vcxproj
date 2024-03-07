@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\WorldObjectFactory\BaseWorldAnimatedObject.cpp" />
+    <ClCompile Include="src\WorldObjectFactory\Traps\SpikeTrap.cpp" />
     <ClCompile Include="src\Player\States\AxisChangeState.cpp" />
     <ClCompile Include="src\Player\States\CollisionState.cpp" />
     <ClCompile Include="src\WorldObjectFactory\AxisChanger.cpp" />
@@ -171,6 +173,8 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\WorldObjectFactory\BaseWorldAnimatedObject.h" />
+    <ClInclude Include="src\WorldObjectFactory\Traps\SpikeTrap.h" />
     <ClInclude Include="src\Player\States\AxisChangeState.h" />
     <ClInclude Include="src\Player\States\CollisionState.h" />
     <ClInclude Include="src\WorldObjectFactory\AxisChanger.h" />
@@ -214,64 +218,52 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-
-
-<PropertyGroup>
-<outputFile>$(OutDir)</outputFile>
- <JsonConfig> $(OutDir)Assets\JsonConfig</JsonConfig>
- <PlayerFile> $(OutDir)Assets\Models\Player\</PlayerFile>
-  <PlayerTextureFile> $(OutDir)Assets\Models\Player\Player.fbm\</PlayerTextureFile>
- <ModelFile> $(OutDir)res\Models\</ModelFile>
-  <ShaderFile> $(OutDir)res\Shader\</ShaderFile>
-  <PostprocessingFile> $(OutDir)res\Shader\PostProcessing\</PostprocessingFile>
-  <DefaultTextureFiles> $(OutDir)res\Textures\DefaultTextures\</DefaultTextureFiles>
-  <IconsTextureFiles> $(OutDir)res\Textures\Icons\</IconsTextureFiles>
-  <SkyBoxTextureFiles> $(OutDir)res\Textures\SkyBox\</SkyBoxTextureFiles>
-  
+  <PropertyGroup>
+    <outputFile>$(OutDir)</outputFile>
+    <JsonConfig> $(OutDir)Assets\JsonConfig</JsonConfig>
+    <PlayerFile> $(OutDir)Assets\Models\Player\</PlayerFile>
+    <PlayerTextureFile> $(OutDir)Assets\Models\Player\Player.fbm\</PlayerTextureFile>
+    <ModelFile> $(OutDir)res\Models\</ModelFile>
+    <ShaderFile> $(OutDir)res\Shader\</ShaderFile>
+    <PostprocessingFile> $(OutDir)res\Shader\PostProcessing\</PostprocessingFile>
+    <DefaultTextureFiles> $(OutDir)res\Textures\DefaultTextures\</DefaultTextureFiles>
+    <IconsTextureFiles> $(OutDir)res\Textures\Icons\</IconsTextureFiles>
+    <SkyBoxTextureFiles> $(OutDir)res\Textures\SkyBox\</SkyBoxTextureFiles>
   </PropertyGroup>
-
-   <ItemGroup>
-<JsonConfigCopyFile Include="Assets\JsonConfig\**"/>
-<PlayerModelCopy Include="Assets\Models\Player\**"  Exclude="Assets\Models\Player\Player.fbm\**"/>
-<PlayerModeltexturesCopy Include="Assets\Models\Player\Player.fbm\**"/>
-<ModelFilesCopy Include="res\Models\**"/>
-<ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**"/>
-<PostprocessingFilesCopy Include="res\Shader\PostProcessing\**"/>
-<DefaultTextureFilesCopy Include="res\Textures\DefaultTextures\**"/>
-<IconTextureFilesCopy Include="res\Textures\Icons\**"/>
-<SkyboxFilesCopy Include="res\Textures\SkyBox\**"/>
-<assimpDLLCopyFile Include="assimp-vc143-mtd.dll"/>
-<imGuiDefault Include="imgui.ini"/>
-
-</ItemGroup>
-
- <Target Name="AtetBuild">
-   <MakeDir Directories="$(outputFile)" />
-   <MakeDir Directories="$(JsonConfig)" />
-   <MakeDir Directories="$(PlayerFile)" />
-   <MakeDir Directories="$(PlayerTextureFile)" />
-   <MakeDir Directories="$(ModelFile)" />
-   <MakeDir Directories="$(ShaderFile)" />
-   <MakeDir Directories="$(PostprocessingFile)" />
-   <MakeDir Directories="$(DefaultTextureFiles)" />
-   <MakeDir Directories="$(IconsTextureFiles)" />
-   <MakeDir Directories="$(SkyBoxTextureFiles)" />
-
-<Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
-<Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
-<Copy SourceFiles="@(PlayerModeltexturesCopy)" DestinationFolder="$(PlayerTextureFile)" />
-<Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
-<Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
-<Copy SourceFiles="@(PostprocessingFilesCopy)" DestinationFolder="$(PostprocessingFile)" />
-<Copy SourceFiles="@(DefaultTextureFilesCopy)" DestinationFolder="$(DefaultTextureFiles)" />
-<Copy SourceFiles="@(IconTextureFilesCopy)" DestinationFolder="$(IconsTextureFiles)" />
-<Copy SourceFiles="@(SkyboxFilesCopy)" DestinationFolder="$(SkyBoxTextureFiles)" />
-<Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
-<Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
-
-
-</Target>
-
-
-
+  <ItemGroup>
+    <JsonConfigCopyFile Include="Assets\JsonConfig\**" />
+    <PlayerModelCopy Include="Assets\Models\Player\**" Exclude="Assets\Models\Player\Player.fbm\**" />
+    <PlayerModeltexturesCopy Include="Assets\Models\Player\Player.fbm\**" />
+    <ModelFilesCopy Include="res\Models\**" />
+    <ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**" />
+    <PostprocessingFilesCopy Include="res\Shader\PostProcessing\**" />
+    <DefaultTextureFilesCopy Include="res\Textures\DefaultTextures\**" />
+    <IconTextureFilesCopy Include="res\Textures\Icons\**" />
+    <SkyboxFilesCopy Include="res\Textures\SkyBox\**" />
+    <assimpDLLCopyFile Include="assimp-vc143-mtd.dll" />
+    <imGuiDefault Include="imgui.ini" />
+  </ItemGroup>
+  <Target Name="AtetBuild">
+    <MakeDir Directories="$(outputFile)" />
+    <MakeDir Directories="$(JsonConfig)" />
+    <MakeDir Directories="$(PlayerFile)" />
+    <MakeDir Directories="$(PlayerTextureFile)" />
+    <MakeDir Directories="$(ModelFile)" />
+    <MakeDir Directories="$(ShaderFile)" />
+    <MakeDir Directories="$(PostprocessingFile)" />
+    <MakeDir Directories="$(DefaultTextureFiles)" />
+    <MakeDir Directories="$(IconsTextureFiles)" />
+    <MakeDir Directories="$(SkyBoxTextureFiles)" />
+    <Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
+    <Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
+    <Copy SourceFiles="@(PlayerModeltexturesCopy)" DestinationFolder="$(PlayerTextureFile)" />
+    <Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
+    <Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
+    <Copy SourceFiles="@(PostprocessingFilesCopy)" DestinationFolder="$(PostprocessingFile)" />
+    <Copy SourceFiles="@(DefaultTextureFilesCopy)" DestinationFolder="$(DefaultTextureFiles)" />
+    <Copy SourceFiles="@(IconTextureFilesCopy)" DestinationFolder="$(IconsTextureFiles)" />
+    <Copy SourceFiles="@(SkyboxFilesCopy)" DestinationFolder="$(SkyBoxTextureFiles)" />
+    <Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
+  </Target>
 </Project>
