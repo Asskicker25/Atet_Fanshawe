@@ -10,12 +10,29 @@ void Player::CollisionState::Start()
 
 	mPlayerController->AssignCollisionCallback([this](PhysicsObject* other)
 		{
-			if (mCanChangeAxis && !mAxisChanged)
+			/*if (mCanChangeAxis && !mAxisChanged)
 			{
 				mPlayerController->mCurrentAxisChanger = (AxisChanger*)other;
 				ChangeAxis();
 				mAxisChanged = true;
+			}*/
+
+			if (other->tag == "AxisChanger")
+			{
+				if (mCanChangeAxis && !mAxisChanged)
+				{
+					mPlayerController->mCurrentAxisChanger = (AxisChanger*)other;
+					ChangeAxis();
+					mAxisChanged = true;
+				}
 			}
+
+			if(other->tag == "Trap")
+			{
+				printf("Trap\n");
+				ChangeState(ePlayerState::DEATH);
+			}
+			
 		});
 }
 
@@ -57,5 +74,6 @@ void Player::CollisionState::OnKeyHeld(const int& key)
 void Player::CollisionState::ChangeAxis()
 {
 	ChangeState(ePlayerState::AXIS_CHANGE);
+	printf("Axis Change\n");
 
 }

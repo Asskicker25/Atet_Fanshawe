@@ -6,6 +6,7 @@
 #include "States/RunState.h"
 #include "States/AxisChangeState.h"
 #include "States/CollisionState.h"
+#include "States/DeathState.h"
 
 using namespace Player;
 
@@ -27,9 +28,11 @@ PlayerController::PlayerController()
 
 	AddState(ePlayerState::IDLE, new IdleState());
 	AddState(ePlayerState::RUN, new RunState());
+	AddState(ePlayerState::DEATH, new DeathState());
 	AddState(ePlayerState::AXIS_CHANGE, new AxisChangeState());
 
 	LoadAndAddAnimationClip("Assets/Animation/Player_Run.fbx", "Run");
+	LoadAndAddAnimationClip("Assets/Animation/Player_Death.fbx", "Death", false);
 	LoadAndAddAnimationClip("Assets/Animation/Player_Idle.fbx", "Idle");
 
 	mIsPlaying = true;
@@ -91,6 +94,9 @@ void Player::PlayerController::Start()
 void Player::PlayerController::Update(float deltaTime)
 {
 	PhysicsSkeletonObject::Update(deltaTime);
+
+	if (mDead) return;
+
 	GetCurrentState()->Update();
 
 	for (BaseState* state : mListOfAlwaysStates)
@@ -140,5 +146,11 @@ void Player::PlayerController::ChangeAxis(ePlayerAxis axis)
 {
 	mCurrentAxis = axis;
 	mCurrentAxisInt = (int)mCurrentAxis;
+}
+
+void Player::PlayerController::Kill()
+{
+	mDead = true;
+	isPhysicsEnabled = false;
 }
 

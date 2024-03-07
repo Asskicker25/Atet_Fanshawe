@@ -70,7 +70,7 @@ void SkeletonModel::Update(float deltaTime)
 	{
 		mCurrentTime += deltaTime * 1000;
 
-		if (mCurrentTime > mCurrentAnimation->mDuration)
+		if (mCurrentAnimation->mLoop && mCurrentTime > mCurrentAnimation->mDuration)
 		{
 			mCurrentTime = 0;
 		}
@@ -85,11 +85,12 @@ void SkeletonModel::Update(float deltaTime)
 	AnimateNodes(deltaTime);
 }
 
-void SkeletonModel::LoadAndAddAnimationClip(const std::string& path, const std::string& animName)
+void SkeletonModel::LoadAndAddAnimationClip(const std::string& path, const std::string& animName, bool loop)
 {
 	Assimp::Importer importer;
 
 	SkeletalAnimation* newAnimation = new SkeletalAnimation();
+	newAnimation->mLoop = loop;
 
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate);
 	assert(scene && scene->mAnimations[0]);

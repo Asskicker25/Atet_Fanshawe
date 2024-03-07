@@ -32,6 +32,7 @@ BaseWorldObject* WorldObjectFactory::CreateFloor(int type)
 BaseWorldObject* WorldObjectFactory::CreateAxisChanger()
 {
 	BaseWorldObject* newObject = new AxisChanger();
+	newObject->tag = mAxisChanger->tag;
 	newObject->CopyFromModel(*mAxisChanger, true);
 	newObject->InitializePhysics(AABB, STATIC, TRIGGER);
 

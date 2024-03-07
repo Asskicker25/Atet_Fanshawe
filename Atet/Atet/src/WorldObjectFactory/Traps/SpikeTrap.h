@@ -12,6 +12,7 @@ public:
 	virtual void Update(float deltaTime) override;
 
 private:
+	void Initialize();
 
 	void SpikeUp();
 	void SpikeDown();

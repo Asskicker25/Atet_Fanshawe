@@ -6,6 +6,7 @@ AxisChanger::AxisChanger(const std::string path, bool addToEntity)
 	: BaseWorldObject(path, addToEntity)
 {
 	userData = this;
+	tag = "AxisChanger";
 }
 
 void AxisChanger::OnPropertyDraw()

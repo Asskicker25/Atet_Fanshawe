@@ -34,6 +34,10 @@ namespace Player
 
 		void ChangeAxis(ePlayerAxis axis);
 
+		void Kill();
+
+		bool mDead = false;
+
 		float mMoveDir = 0;
 		float mPlayerFaceDir = 1;
 		float mRotLerpSpeed = 10;

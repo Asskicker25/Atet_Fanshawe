@@ -25,7 +25,7 @@ public:
 	virtual void OnPropertyDraw();
 
 	virtual void Update(float deltaTime) override;
-	void LoadAndAddAnimationClip(const std::string& path, const std::string& animName);
+	void LoadAndAddAnimationClip(const std::string& path, const std::string& animName, bool loop = true);
 	void AnimateNodes(float deltaTime);
 
 	void PlayAnimation(const std::string& name);

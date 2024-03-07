@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Player\States\DeathState.cpp" />
     <ClCompile Include="src\WorldObjectFactory\BaseWorldAnimatedObject.cpp" />
     <ClCompile Include="src\WorldObjectFactory\Traps\SpikeTrap.cpp" />
     <ClCompile Include="src\Player\States\AxisChangeState.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\States\DeathState.h" />
     <ClInclude Include="src\WorldObjectFactory\BaseWorldAnimatedObject.h" />
     <ClInclude Include="src\WorldObjectFactory\Traps\SpikeTrap.h" />
     <ClInclude Include="src\Player\States\AxisChangeState.h" />

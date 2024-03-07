@@ -30,7 +30,7 @@ void Player::IdleState::Cleanup()
 
 void Player::IdleState::OnKeyPressed(const int& key)
 {
-	if (!mStateEnabled) return;
+	if (!mStateEnabled || mPlayerController->mDead) return;
 
 	if (key == GLFW_KEY_SPACE)
 	{
@@ -44,7 +44,7 @@ void Player::IdleState::OnKeyReleased(const int& key)
 
 void Player::IdleState::OnKeyHeld(const int& key)
 {
-	if (!mStateEnabled) return;
+	if (!mStateEnabled || mPlayerController->mDead) return;
 
 	if (key == GLFW_KEY_A || key == GLFW_KEY_D)
 	{

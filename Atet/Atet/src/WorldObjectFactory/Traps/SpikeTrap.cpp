@@ -6,16 +6,12 @@ using namespace MathUtilities;
 
 SpikeTrap::SpikeTrap()
 {
-	mIsPlaying = true;
-	mControlTime = true;
-	mControlTimeParam = 1;
+	Initialize();
 }
 
 SpikeTrap::SpikeTrap(const std::string& modelPath, bool addToEntity) : BaseWorldAnimatedObject(modelPath, addToEntity)
 {
-	mIsPlaying = true;
-	mControlTime = true;
-	mControlTimeParam = 1;
+	Initialize();
 }
 
 void SpikeTrap::Update(float deltaTime)
@@ -27,11 +23,23 @@ void SpikeTrap::Update(float deltaTime)
 	HandleSpikeDown(deltaTime);
 }
 
+void SpikeTrap::Initialize()
+{
+	mIsPlaying = true;
+	mControlTime = true;
+	isPhysicsEnabled = false;
+	mControlTimeParam = 1;
+
+	userData = this;
+	tag = "Trap";
+}
+
 void SpikeTrap::SpikeUp()
 {
 	mSpikeUp = true;
 	mCurrentTimeStep = 0;
 	mControlTimeParam = SPIKE_DOWN_VALUE;
+	isPhysicsEnabled = true;
 }
 
 void SpikeTrap::SpikeDown()
@@ -69,6 +77,7 @@ void SpikeTrap::HandleSpikeDown(float deltaTime)
 	{
 		mSpikeDown = false;
 		mIsSpikeUp = false;
+		isPhysicsEnabled = false;
 		mCurrentTimeStep = 0;
 	}
 }

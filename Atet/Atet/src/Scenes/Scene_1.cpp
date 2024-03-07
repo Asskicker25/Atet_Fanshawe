@@ -48,8 +48,12 @@ void Scene_1::Start()
 	((AxisChanger*)axisChanger_2)->mCameraFlips[0] = true;
 	((AxisChanger*)axisChanger_2)->mCameraFlips[1] = true;
 
-	BaseWorldAnimatedObject* spikeTrap = worldFactory->CreateTrap();
-	spikeTrap->name = "SpikeTrap";
+	BaseWorldAnimatedObject* spikeTrap_1 = worldFactory->CreateTrap();
+	spikeTrap_1->name = "SpikeTrap_1";
+	
+	BaseWorldAnimatedObject* spikeTrap_2 = worldFactory->CreateTrap();
+	spikeTrap_2->name = "SpikeTrap_2";
+	spikeTrap_2->transform.SetPosition(glm::vec3(9, 0, -6));
 
 	PlayerController* playerController = new PlayerController();
 	playerController->transform.SetPosition(glm::vec3( - 3.0, 0, 0));
