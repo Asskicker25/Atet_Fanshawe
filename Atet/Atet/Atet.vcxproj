@@ -224,6 +224,8 @@
     <outputFile>$(OutDir)</outputFile>
     <JsonConfig> $(OutDir)Assets\JsonConfig</JsonConfig>
     <PlayerFile> $(OutDir)Assets\Models\Player\</PlayerFile>
+    <TrapFile> $(OutDir)Assets\Models\Traps\</TrapFile>
+    <AnimationFile> $(OutDir)Assets\Animation\</AnimationFile>
     <PlayerTextureFile> $(OutDir)Assets\Models\Player\Player.fbm\</PlayerTextureFile>
     <ModelFile> $(OutDir)res\Models\</ModelFile>
     <ShaderFile> $(OutDir)res\Shader\</ShaderFile>
@@ -235,6 +237,8 @@
   <ItemGroup>
     <JsonConfigCopyFile Include="Assets\JsonConfig\**" />
     <PlayerModelCopy Include="Assets\Models\Player\**" Exclude="Assets\Models\Player\Player.fbm\**" />
+    <TrapFileCopy Include="Assets\Models\Traps\**"/>
+    <AnimationFileCopy Include="Assets\Animation\**"/>
     <PlayerModeltexturesCopy Include="Assets\Models\Player\Player.fbm\**" />
     <ModelFilesCopy Include="res\Models\**" />
     <ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**" />
@@ -256,8 +260,14 @@
     <MakeDir Directories="$(DefaultTextureFiles)" />
     <MakeDir Directories="$(IconsTextureFiles)" />
     <MakeDir Directories="$(SkyBoxTextureFiles)" />
+    <MakeDir Directories="$(TrapFile)" />
+    <MakeDir Directories="$(AnimationFile)" />
+
     <Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
     <Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
+    <Copy SourceFiles="@(TrapFileCopy)" DestinationFolder="$(TrapFile)" />
+    <Copy SourceFiles="@(AnimationFileCopy)" DestinationFolder="$(AnimationFile)" />
+   
     <Copy SourceFiles="@(PlayerModeltexturesCopy)" DestinationFolder="$(PlayerTextureFile)" />
     <Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
     <Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
@@ -268,4 +278,33 @@
     <Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
   </Target>
+
+
+<Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
+
+    <Message Text="Atet Application Build Successfully" />
+ <!--All lossless pngs-->
+    <ItemGroup>
+        <PngFiles Include="$(OutDir)\**\*.png" />
+    </ItemGroup>
+
+       <!-- Lossy Compression with pngquant -->
+    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"' 
+          Condition="Exists('%(PngFiles.Identity)')" 
+          ContinueOnError="false" ConsoleToMSBuild="false" />
+
+    <!-- Lossless Compression with optipng -->
+    <Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
+          Condition="Exists('%(PngFiles.Identity)')" 
+          ContinueOnError="false" />
+
+     <!-- Convert to PVR with PVRTexToolCLI -->
+     <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
+          Condition="Exists('%(PngFiles.Identity)')" 
+          ContinueOnError="true" />
+
+
+</Target>
+
+
 </Project>
