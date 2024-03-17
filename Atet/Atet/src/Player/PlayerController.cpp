@@ -40,6 +40,11 @@ PlayerController::PlayerController()
 	AddAlwaysState(new CollisionState());
 
 	mCameraController = new CameraController(this);
+
+	mPlayerHealthManager.Intialize(modelId);
+
+	//int health = mPlayerHealthManager.GetPlayerHealthCount();
+
 }
 
 void Player::PlayerController::AddState(ePlayerState stateType, BaseState* state)

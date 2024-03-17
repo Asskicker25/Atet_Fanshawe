@@ -1,6 +1,6 @@
 #include "Atet_Application.h"
 #include "Scenes/Scene_1.h"
-
+#include "SQLlite/SQLManager.h"
 void Atet_Application::SetUp()
 {
 	viewportCamera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 100.0f, 45.0f);
@@ -17,11 +17,17 @@ void Atet_Application::SetUp()
 
 	EditorLayout::GetInstance().SetMaximizeState(false);
 
+	SQLManager::GetInstance().Initialize();
+
 	BaseScene* scene_1 = new Scene_1();
 
 	SceneManager::GetInstance().AddScene("Scene_1", scene_1);
 
 	SceneManager::GetInstance().ChangeScene("Scene_1");
+
+
+
+
 
 }
 
@@ -51,6 +57,7 @@ void Atet_Application::MouseButtonCallback(GLFWwindow* window, int& button, int&
 
 void Atet_Application::Shutdown()
 {
+	SQLManager::GetInstance().Close();
 }
 
 void Atet_Application::OnPlayStateChanged(bool state)

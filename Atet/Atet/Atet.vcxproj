@@ -137,7 +137,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Player\PlayerHealthManager.cpp" />
+    <ClCompile Include="src\SQLlite\SQLManager.cpp" />
     <ClCompile Include="src\Player\States\DeathState.cpp" />
+    <ClCompile Include="src\SQLlite\shell.c" />
+    <ClCompile Include="src\SQLlite\sqlite3.c" />
     <ClCompile Include="src\WorldObjectFactory\BaseWorldAnimatedObject.cpp" />
     <ClCompile Include="src\WorldObjectFactory\Traps\SpikeTrap.cpp" />
     <ClCompile Include="src\Player\States\AxisChangeState.cpp" />
@@ -174,7 +178,11 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\PlayerHealthManager.h" />
+    <ClInclude Include="src\SQLlite\SQLManager.h" />
     <ClInclude Include="src\Player\States\DeathState.h" />
+    <ClInclude Include="src\SQLlite\sqlite3.h" />
+    <ClInclude Include="src\SQLlite\sqlite3ext.h" />
     <ClInclude Include="src\WorldObjectFactory\BaseWorldAnimatedObject.h" />
     <ClInclude Include="src\WorldObjectFactory\Traps\SpikeTrap.h" />
     <ClInclude Include="src\Player\States\AxisChangeState.h" />
@@ -237,8 +245,8 @@
   <ItemGroup>
     <JsonConfigCopyFile Include="Assets\JsonConfig\**" />
     <PlayerModelCopy Include="Assets\Models\Player\**" Exclude="Assets\Models\Player\Player.fbm\**" />
-    <TrapFileCopy Include="Assets\Models\Traps\**"/>
-    <AnimationFileCopy Include="Assets\Animation\**"/>
+    <TrapFileCopy Include="Assets\Models\Traps\**" />
+    <AnimationFileCopy Include="Assets\Animation\**" />
     <PlayerModeltexturesCopy Include="Assets\Models\Player\Player.fbm\**" />
     <ModelFilesCopy Include="res\Models\**" />
     <ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**" />
@@ -262,12 +270,10 @@
     <MakeDir Directories="$(SkyBoxTextureFiles)" />
     <MakeDir Directories="$(TrapFile)" />
     <MakeDir Directories="$(AnimationFile)" />
-
     <Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
     <Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
     <Copy SourceFiles="@(TrapFileCopy)" DestinationFolder="$(TrapFile)" />
     <Copy SourceFiles="@(AnimationFileCopy)" DestinationFolder="$(AnimationFile)" />
-   
     <Copy SourceFiles="@(PlayerModeltexturesCopy)" DestinationFolder="$(PlayerTextureFile)" />
     <Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
     <Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
@@ -278,59 +284,33 @@
     <Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
   </Target>
-
-
-<Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
-
+  <Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
     <Message Text="Atet Application Build Successfully" />
- <!--All lossless pngs-->
-
-
-   <!-- Define the directories -->
+    <!--All lossless pngs-->
+    <!-- Define the directories -->
     <PropertyGroup>
-        <ProjectDir>$(ProjectDir)</ProjectDir>
-        <PngquantPath>"$(ProjectDir)pngquant.exe"</PngquantPath>
-        <OptipngPath>"$(ProjectDir)optipng.exe"</OptipngPath>
-        <PvrTexToolCliPath>"$(ProjectDir)PVRTexToolCLI.exe"</PvrTexToolCliPath>
-        <OutputDir>$(OutDir)</OutputDir>
-        <CompressedFilesDir>$(OutDir)\CompressedFiles\</CompressedFilesDir>
+      <ProjectDir>$(ProjectDir)</ProjectDir>
+      <PngquantPath>"$(ProjectDir)pngquant.exe"</PngquantPath>
+      <OptipngPath>"$(ProjectDir)optipng.exe"</OptipngPath>
+      <PvrTexToolCliPath>"$(ProjectDir)PVRTexToolCLI.exe"</PvrTexToolCliPath>
+      <OutputDir>$(OutDir)</OutputDir>
+      <CompressedFilesDir>$(OutDir)\CompressedFiles\</CompressedFilesDir>
     </PropertyGroup>
-
     <!-- All lossless PNGs -->
     <ItemGroup>
-        <PngFiles Include="$(OutputDir)\**\*.png" />
+      <PngFiles Include="$(OutputDir)\**\*.png" />
     </ItemGroup>
-
-       <ItemGroup>
-        <!-- Compressed PNG files -->
-        <CompressedPngFiles Include="$(CompressedFilesDir)\*.png" />
+    <ItemGroup>
+      <!-- Compressed PNG files -->
+      <CompressedPngFiles Include="$(CompressedFilesDir)\*.png" />
     </ItemGroup>
-
-
     <!-- Lossy Compression with pngquant -->
-    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"'
-                 Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')"
-          ContinueOnError="true" ConsoleToMSBuild="false" />
-
-
-<!-- Lossless Compression with optipng -->
-<Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
-       Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')"
-      ContinueOnError="false" />
-
- <!-- Convert to PVR with PVRTexToolCLI -->
- <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
-       Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')"
-      ContinueOnError="true" />
-
+    <Exec Command="&quot;$(ProjectDir)pngquant.exe&quot; --force --ext .png --quality=70-80 --skip-if-larger &quot;%(PngFiles.Identity)&quot;" Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')" ContinueOnError="true" ConsoleToMSBuild="false" />
+    <!-- Lossless Compression with optipng -->
+    <Exec Command="&quot;$(ProjectDir)optipng.exe&quot; -force &quot;%(PngFiles.Identity)&quot;" Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')" ContinueOnError="false" />
+    <!-- Convert to PVR with PVRTexToolCLI -->
+    <Exec Command="&quot;$(ProjectDir)PVRTexToolCLI.exe&quot; -f PVRTCI_4BPP_RGBA -i &quot;%(PngFiles.Identity)&quot; -o &quot;$(OutDir)\%(RecursiveDir)%(Filename).pvr&quot; -q pvrtcfast" Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')" ContinueOnError="true" />
     <!-- Copy compressed files to the CompressedFiles directory -->
-    <Copy SourceFiles="@(PngFiles)"
-          DestinationFolder="$(CompressedFilesDir)"
-           Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')" />
-
-
-
-</Target>
-
-
+    <Copy SourceFiles="@(PngFiles)" DestinationFolder="$(CompressedFilesDir)" Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')" />
+  </Target>
 </Project>

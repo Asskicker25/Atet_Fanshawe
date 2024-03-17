@@ -9,7 +9,7 @@
 #include "States/BaseState.h"
 #include "CameraController.h"
 #include "../WorldObjectFactory/AxisChanger.h"
-
+#include "PlayerHealthManager.h"
 
 namespace Player
 {
@@ -63,6 +63,7 @@ namespace Player
 		std::vector<BaseState*> mListOfAlwaysStates;
 		std::unordered_map<ePlayerState, BaseState*> mListOfStates;
 
+		PlayerHealthManager mPlayerHealthManager;
 	};
 
 }
