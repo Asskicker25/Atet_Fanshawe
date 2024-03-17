@@ -284,24 +284,50 @@
 
     <Message Text="Atet Application Build Successfully" />
  <!--All lossless pngs-->
+
+
+   <!-- Define the directories -->
+    <PropertyGroup>
+        <ProjectDir>$(ProjectDir)</ProjectDir>
+        <PngquantPath>"$(ProjectDir)pngquant.exe"</PngquantPath>
+        <OptipngPath>"$(ProjectDir)optipng.exe"</OptipngPath>
+        <PvrTexToolCliPath>"$(ProjectDir)PVRTexToolCLI.exe"</PvrTexToolCliPath>
+        <OutputDir>$(OutDir)</OutputDir>
+        <CompressedFilesDir>$(OutDir)\CompressedFiles\</CompressedFilesDir>
+    </PropertyGroup>
+
+    <!-- All lossless PNGs -->
     <ItemGroup>
-        <PngFiles Include="$(OutDir)\**\*.png" />
+        <PngFiles Include="$(OutputDir)\**\*.png" />
     </ItemGroup>
 
-       <!-- Lossy Compression with pngquant -->
-    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="false" ConsoleToMSBuild="false" />
+       <ItemGroup>
+        <!-- Compressed PNG files -->
+        <CompressedPngFiles Include="$(CompressedFilesDir)\*.png" />
+    </ItemGroup>
 
-    <!-- Lossless Compression with optipng -->
-    <Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="false" />
 
-     <!-- Convert to PVR with PVRTexToolCLI -->
-     <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="true" />
+    <!-- Lossy Compression with pngquant -->
+    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"'
+                 Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')"
+          ContinueOnError="true" ConsoleToMSBuild="false" />
+
+
+<!-- Lossless Compression with optipng -->
+<Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
+       Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')"
+      ContinueOnError="false" />
+
+ <!-- Convert to PVR with PVRTexToolCLI -->
+ <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
+       Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')"
+      ContinueOnError="true" />
+
+    <!-- Copy compressed files to the CompressedFiles directory -->
+    <Copy SourceFiles="@(PngFiles)"
+          DestinationFolder="$(CompressedFilesDir)"
+           Condition="!Exists('$(CompressedFilesDir)\%(Filename)%(Extension)')" />
+
 
 
 </Target>
