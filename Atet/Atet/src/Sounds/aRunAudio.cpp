@@ -39,13 +39,13 @@ void aRunAudio::RunAudio()
 void aRunAudio::UpdatePosition(Camera& cam, float ModelposX)
 {
 	
-	audioManager->SetListenerAttributes(cam.Position, m_Velocity, -cam.Front, cam.Up);
+	audioManager->SetListenerAttributes(cam.transform.position, m_Velocity, -cam.transform.GetForward(), cam.transform.GetUp());
 
 	if (!isDestroyed  )
 	{
 		
 
-		dopplerAudio->SetListenerAttributes(cam.Position, m_Velocity, -cam.Front, cam.Up);
+		dopplerAudio->SetListenerAttributes(cam.transform.position, m_Velocity, -cam.transform.GetForward(), cam.transform.GetUp());
 		dopplerAudio->Update3DPositionOfChannel(UpdateChannelIndex, ModelposX);
 		dopplerAudio->Update();
 

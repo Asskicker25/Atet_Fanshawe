@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\Debug_assimp;$(ProjectDir)Dependencies\lib\glfw\$(Configuration)_x64;$(ProjectDir)Dependencies\lib\Physics\$(Configuration);$(ProjectDir)Dependencies\lib\Animation\$(Configuration);$(ProjectDir)Dependencies\lib\Graphics\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)Dependencies\lib\Debug_assimp;$(ProjectDir)Dependencies\lib\glfw\$(Configuration)_x64;$(ProjectDir)Dependencies\lib\Physics\$(Configuration);$(ProjectDir)Dependencies\lib\Animation\$(Configuration);$(ProjectDir)Dependencies\lib\Graphics\$(Configuration);$(ProjectDir)Dependencies\lib\fmod\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,7 +116,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;Animation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;Animation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\lib\fmod;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,10 +134,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;Animation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;Animation.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Sounds\AudioSource.cpp" />
+    <ClCompile Include="src\Sounds\AudioManager.cpp" />
+    <ClCompile Include="src\Sounds\BaseAudioSource.cpp" />
+    <ClCompile Include="src\Sounds\AudioUtils.cpp" />
     <ClCompile Include="src\Player\States\DeathState.cpp" />
     <ClCompile Include="src\WorldObjectFactory\BaseWorldAnimatedObject.cpp" />
     <ClCompile Include="src\WorldObjectFactory\Traps\SpikeTrap.cpp" />
@@ -174,6 +180,10 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Sounds\AudioSource.h" />
+    <ClInclude Include="src\Sounds\AudioManager.h" />
+    <ClInclude Include="src\Sounds\BaseAudioSource.h" />
+    <ClInclude Include="src\Sounds\AudioUtils.h" />
     <ClInclude Include="src\Player\States\DeathState.h" />
     <ClInclude Include="src\WorldObjectFactory\BaseWorldAnimatedObject.h" />
     <ClInclude Include="src\WorldObjectFactory\Traps\SpikeTrap.h" />
@@ -237,8 +247,8 @@
   <ItemGroup>
     <JsonConfigCopyFile Include="Assets\JsonConfig\**" />
     <PlayerModelCopy Include="Assets\Models\Player\**" Exclude="Assets\Models\Player\Player.fbm\**" />
-    <TrapFileCopy Include="Assets\Models\Traps\**"/>
-    <AnimationFileCopy Include="Assets\Animation\**"/>
+    <TrapFileCopy Include="Assets\Models\Traps\**" />
+    <AnimationFileCopy Include="Assets\Animation\**" />
     <PlayerModeltexturesCopy Include="Assets\Models\Player\Player.fbm\**" />
     <ModelFilesCopy Include="res\Models\**" />
     <ShaderFileCopy Include="res\Shader\**" Exclude="res\Shader\PostProcessing\**" />
@@ -262,12 +272,10 @@
     <MakeDir Directories="$(SkyBoxTextureFiles)" />
     <MakeDir Directories="$(TrapFile)" />
     <MakeDir Directories="$(AnimationFile)" />
-
     <Copy SourceFiles="@(JsonConfigCopyFile)" DestinationFolder="$(JsonConfig)" />
     <Copy SourceFiles="@(PlayerModelCopy)" DestinationFolder="$(PlayerFile)" />
     <Copy SourceFiles="@(TrapFileCopy)" DestinationFolder="$(TrapFile)" />
     <Copy SourceFiles="@(AnimationFileCopy)" DestinationFolder="$(AnimationFile)" />
-   
     <Copy SourceFiles="@(PlayerModeltexturesCopy)" DestinationFolder="$(PlayerTextureFile)" />
     <Copy SourceFiles="@(ModelFilesCopy)" DestinationFolder="$(ModelFile)" />
     <Copy SourceFiles="@(ShaderFileCopy)" DestinationFolder="$(ShaderFile)" />
@@ -278,33 +286,17 @@
     <Copy SourceFiles="@(assimpDLLCopyFile)" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="@(imGuiDefault)" DestinationFolder="$(OutDir)" />
   </Target>
-
-
-<Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
-
+  <Target Name="AfterBuild" DependsOnTargets="AtetBuild" Condition="'$(Configuration)'=='Debug'">
     <Message Text="Atet Application Build Successfully" />
- <!--All lossless pngs-->
+    <!--All lossless pngs-->
     <ItemGroup>
-        <PngFiles Include="$(OutDir)\**\*.png" />
+      <PngFiles Include="$(OutDir)\**\*.png" />
     </ItemGroup>
-
-       <!-- Lossy Compression with pngquant -->
-    <Exec Command='"$(ProjectDir)pngquant.exe" --force --ext .png --quality=70-80 --skip-if-larger "%(PngFiles.Identity)"' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="false" ConsoleToMSBuild="false" />
-
+    <!-- Lossy Compression with pngquant -->
+    <Exec Command="&quot;$(ProjectDir)pngquant.exe&quot; --force --ext .png --quality=70-80 --skip-if-larger &quot;%(PngFiles.Identity)&quot;" Condition="Exists('%(PngFiles.Identity)')" ContinueOnError="false" ConsoleToMSBuild="false" />
     <!-- Lossless Compression with optipng -->
-    <Exec Command='"$(ProjectDir)optipng.exe" -force "%(PngFiles.Identity)"' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="false" />
-
-     <!-- Convert to PVR with PVRTexToolCLI -->
-     <Exec Command='"$(ProjectDir)PVRTexToolCLI.exe" -f PVRTCI_4BPP_RGBA -i "%(PngFiles.Identity)" -o "$(OutDir)\%(RecursiveDir)%(Filename).pvr" -q pvrtcfast' 
-          Condition="Exists('%(PngFiles.Identity)')" 
-          ContinueOnError="true" />
-
-
-</Target>
-
-
+    <Exec Command="&quot;$(ProjectDir)optipng.exe&quot; -force &quot;%(PngFiles.Identity)&quot;" Condition="Exists('%(PngFiles.Identity)')" ContinueOnError="false" />
+    <!-- Convert to PVR with PVRTexToolCLI -->
+    <Exec Command="&quot;$(ProjectDir)PVRTexToolCLI.exe&quot; -f PVRTCI_4BPP_RGBA -i &quot;%(PngFiles.Identity)&quot; -o &quot;$(OutDir)\%(RecursiveDir)%(Filename).pvr&quot; -q pvrtcfast" Condition="Exists('%(PngFiles.Identity)')" ContinueOnError="true" />
+  </Target>
 </Project>

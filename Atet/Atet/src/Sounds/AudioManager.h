@@ -6,6 +6,7 @@
 #include <map>
 #include <glm/glm.hpp>
 #include <Graphics/Mesh/Mesh.h>
+#include "BaseAudioSource.h"
 
 
 struct Audio
@@ -83,7 +84,10 @@ public:
 
 	bool isPlaying;
 
-	Rotations rotation;;
+	Rotations rotation;
+
+	
+
 
 private:
 	bool m_Initialized = false;

@@ -1,6 +1,6 @@
 #pragma once
 #include "AudioManager.h"
-#include "Camera.h"
+#include <Graphics/Camera/Camera.h>
 
 extern bool isExited;
 extern bool isEntered;

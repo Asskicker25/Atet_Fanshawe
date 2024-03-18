@@ -2,6 +2,7 @@
 
 #include <Graphics/ApplicationWindow.h>
 #include <Physics/PhysicsEngine.h>
+#include "Sounds/AudioSource.h"
 
 class Atet_Application : public ApplicationWindow
 {
@@ -16,5 +17,7 @@ class Atet_Application : public ApplicationWindow
 	// Inherited via ApplicationWindow
 	void Shutdown() override;
 	void OnPlayStateChanged(bool state) override;
+
+	AudioSource* audioSource = new AudioSource();
 };
 

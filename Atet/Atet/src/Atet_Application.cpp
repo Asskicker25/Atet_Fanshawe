@@ -43,6 +43,15 @@ void Atet_Application::ProcessInput(GLFWwindow* window)
 
 void Atet_Application::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)
 {
+
+	if (key == GLFW_KEY_P && action == GLFW_PRESS)
+	{
+
+
+		audioSource->PlayAudio();
+
+
+	}
 }
 
 void Atet_Application::MouseButtonCallback(GLFWwindow* window, int& button, int& action, int& mods)

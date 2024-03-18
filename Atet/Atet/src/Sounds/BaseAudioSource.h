@@ -3,7 +3,7 @@
 class BaseAudioSource
 {
 
-	virtual ~BaseAudioSource() = 0;
+	virtual ~BaseAudioSource() {};
 
 	virtual void PlayAudio() = 0;
 	virtual void PauseAudio() = 0;
