@@ -3,10 +3,11 @@
 #include <string>
 #include <functional>
 #include <unordered_map>
-#include <lua.hpp>
+#include <map>
+#include <lua/lua.hpp>
 #include <iostream>
-#include "CommandManager.h"
-#include "model.h"
+#include "Command/CommandManager.h"
+#include <Graphics/Mesh/Model.h>
 #include "GraphicsRender.h"
 #include "PhysicsEngine.h"
 #include "EasingTechiques.h"

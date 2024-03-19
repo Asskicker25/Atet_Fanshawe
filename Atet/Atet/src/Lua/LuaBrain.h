@@ -1,13 +1,12 @@
 #pragma once
 #include <string>
 #include <iostream>
-#include "PhysicsObject.h"
-#include "Transform.h"
+#include <Physics/PhysicsObject.h>
 
 extern "C" {
-#include <lua.h>
-#include <lauxlib.h>
-#include <lualib.h>
+#include <lua/lua.h>
+#include <lua/lauxlib.h>
+#include <lua/lualib.h>
 }
 
 struct PlayerMoveTo
