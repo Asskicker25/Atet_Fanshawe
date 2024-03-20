@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -139,6 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lua\Command\SoundCommand.cpp" />
+    <ClCompile Include="src\Lua\Command\Command.cpp" />
+    <ClCompile Include="src\Lua\Command\CommandGroup.cpp" />
+    <ClCompile Include="src\Lua\Command\CommandManager.cpp" />
+    <ClCompile Include="src\Lua\Command\WaitForSecond.cpp" />
+    <ClCompile Include="src\Lua\LuaBrain.cpp" />
+    <ClCompile Include="src\Lua\LuaHandler.cpp" />
+    <ClCompile Include="src\Lua\LuaManager.cpp" />
     <ClCompile Include="src\Sounds\AudioSource.cpp" />
     <ClCompile Include="src\Sounds\AudioManager.cpp" />
     <ClCompile Include="src\Sounds\BaseAudioSource.cpp" />
@@ -180,6 +188,15 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lua\Command\SoundCommand.h" />
+    <ClInclude Include="src\Lua\Command\Command.h" />
+    <ClInclude Include="src\Lua\Command\CommandGroup.h" />
+    <ClInclude Include="src\Lua\Command\CommandManager.h" />
+    <ClInclude Include="src\Lua\Command\iCommand.h" />
+    <ClInclude Include="src\Lua\Command\WaitForSeconds.h" />
+    <ClInclude Include="src\Lua\LuaBrain.h" />
+    <ClInclude Include="src\Lua\LuaHandler.h" />
+    <ClInclude Include="src\Lua\LuaManager.h" />
     <ClInclude Include="src\Sounds\AudioSource.h" />
     <ClInclude Include="src\Sounds\AudioManager.h" />
     <ClInclude Include="src\Sounds\BaseAudioSource.h" />

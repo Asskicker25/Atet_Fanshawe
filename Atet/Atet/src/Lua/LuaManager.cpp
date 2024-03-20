@@ -6,13 +6,14 @@
 #include "MoveAlongOneAxisWithTime.h"
 #include "GameObject.h"
 #include "ScaleTo.h"
-#include "Sphere.h"
+#include "Sphere.h"	
 #include "RotateAlongAxisWithTime.h"
 #include "FollowCurveWithTime.h"
 #include "LookAt.h"
 #include "Ball.h"
 #include "SpawnObject.h"
 #include "../Barrel/Barrel.h"
+#include "Command/SoundCommand.h"
 
 LuaManager::LuaManager()
 {
@@ -135,7 +136,7 @@ void LuaManager::AddModelsInMap(Model* model)
 		modelMap[model->id] = model;
 	}
 }
-
+                           
 void LuaManager::AddGameObjectInMap(GameObject* gameObject , const std::string& tag)
 {
 	if (gameObject != nullptr)
@@ -674,6 +675,11 @@ int LuaManager::LuaSetCollisionTrigger(lua_State* L)
 		currentGroup->isCollisionTrigger = false;
 	}
 
+	return 0;
+}
+
+int LuaManager::LuaPlaySound(lua_State* L)
+{
 	return 0;
 }
 

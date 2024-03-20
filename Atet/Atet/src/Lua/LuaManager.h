@@ -8,9 +8,9 @@
 #include <iostream>
 #include "Command/CommandManager.h"
 #include <Graphics/Mesh/Model.h>
-#include "GraphicsRender.h"
-#include "PhysicsEngine.h"
-#include "EasingTechiques.h"
+//#include "GraphicsRender.h" its made into instance
+#include <Physics/PhysicsEngine.h>
+//#include "EasingTechiques.h" not needed for now 
 
 class MoveTo;
 class OrientTo;
@@ -25,6 +25,7 @@ class SphereTest;
 class LookAt;
 class Ball;
 class Barrel;
+class SoundCommand;
 
 class LuaManager
 {
@@ -94,12 +95,13 @@ private:
 
 	static  int LuaSetCollisionTrigger(lua_State* L);
 
+	static int LuaPlaySound(lua_State* L);
 
 
 	Model* model;
 	GameObject* gameObject;
 
-	GraphicsRender* renderer;
+	//GraphicsRender* renderer;
 	Shader* shader;
 	PhysicsEngine* engine;
 
