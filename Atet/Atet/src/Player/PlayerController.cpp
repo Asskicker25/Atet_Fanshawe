@@ -7,6 +7,8 @@
 #include "States/AxisChangeState.h"
 #include "States/CollisionState.h"
 #include "States/DeathState.h"
+#include "States/CheckForMoveObjectState.h"
+#include "States/ObjectMoveState.h"
 
 using namespace Player;
 
@@ -30,14 +32,19 @@ PlayerController::PlayerController()
 	AddState(ePlayerState::RUN, new RunState());
 	AddState(ePlayerState::DEATH, new DeathState());
 	AddState(ePlayerState::AXIS_CHANGE, new AxisChangeState());
+	AddState(ePlayerState::OBJECT_MOVE, new ObjectMoveState());
+		
+	AddAlwaysState(new CollisionState());
+	AddAlwaysState(new CheckForMoveObjectState());
 
 	LoadAndAddAnimationClip("Assets/Animation/Player_Run.fbx", "Run");
 	LoadAndAddAnimationClip("Assets/Animation/Player_Death.fbx", "Death", false);
 	LoadAndAddAnimationClip("Assets/Animation/Player_Idle.fbx", "Idle");
+	LoadAndAddAnimationClip("Assets/Animation/Player_Push.fbx", "Push");
+	LoadAndAddAnimationClip("Assets/Animation/Player_Pull.fbx", "Pull");
 
 	mIsPlaying = true;
 
-	AddAlwaysState(new CollisionState());
 
 	mCameraController = new CameraController(this);
 
@@ -130,7 +137,7 @@ void Player::PlayerController::OnPropertyDraw()
 		return;
 	}
 
-	if (ImGuiUtils::DrawDropDown("State", mCurrentStateInt, stateStrings, 2))
+	if (ImGuiUtils::DrawDropDown("State", mCurrentStateInt, stateStrings, 5))
 	{
 		ChangeState((ePlayerState)mCurrentStateInt);
 	}
@@ -151,6 +158,11 @@ void Player::PlayerController::ChangeAxis(ePlayerAxis axis)
 {
 	mCurrentAxis = axis;
 	mCurrentAxisInt = (int)mCurrentAxis;
+}
+
+void Player::PlayerController::AddMovableObject(MovableObject* object)
+{
+	mListOfMovableObjects.push_back(object);
 }
 
 void Player::PlayerController::Kill()

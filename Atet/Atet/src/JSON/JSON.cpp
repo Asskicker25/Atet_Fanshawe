@@ -28,6 +28,7 @@ bool JSON::ReadPlayerData(const std::string& filename, PlayerData& player)
         player.modelPath = doc["modelPath"].GetString();
         player.lives = doc["lives"].GetInt();
         player.speed = doc["speed"].GetFloat();
+        player.pushPullSpeed = doc["pushPullSpeed"].GetFloat();
         return true;
     }
 

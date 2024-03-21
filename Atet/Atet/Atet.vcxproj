@@ -137,6 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Player\States\CheckForMoveObjectState.cpp" />
+    <ClCompile Include="src\Player\States\ObjectMoveState.cpp" />
+    <ClCompile Include="src\WorldObjectFactory\MovableObject.cpp" />
     <ClCompile Include="src\Lua\Command\Command.cpp" />
     <ClCompile Include="src\Lua\Command\CommandGroup.cpp" />
     <ClCompile Include="src\Lua\Command\CommandManager.cpp" />
@@ -190,6 +193,9 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Player\States\CheckForMoveObjectState.h" />
+    <ClInclude Include="src\Player\States\ObjectMoveState.h" />
+    <ClInclude Include="src\WorldObjectFactory\MovableObject.h" />
     <ClInclude Include="src\Lua\Command\Command.h" />
     <ClInclude Include="src\Lua\Command\CommandGroup.h" />
     <ClInclude Include="src\Lua\Command\CommandManager.h" />

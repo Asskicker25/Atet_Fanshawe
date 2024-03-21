@@ -168,6 +168,15 @@
     <ClCompile Include="src\Sounds\BaseAudioSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\WorldObjectFactory\MovableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player\States\ObjectMoveState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player\States\CheckForMoveObjectState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\include\imgui\imconfig.h">
@@ -345,6 +354,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Sounds\BaseAudioSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WorldObjectFactory\MovableObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player\States\ObjectMoveState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player\States\CheckForMoveObjectState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

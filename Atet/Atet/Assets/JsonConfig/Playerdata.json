@@ -1,5 +1,6 @@
 {
     "modelPath": "Assets/Models/Player/Player.fbx",
     "lives": 1,
-    "speed": 10.0
+    "speed": 10.0,
+    "pushPullSpeed": 3
 }

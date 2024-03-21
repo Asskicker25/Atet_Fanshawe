@@ -11,6 +11,7 @@ public:
 
 	BaseWorldObject* CreateFloor(int type = 0);
 	BaseWorldObject* CreateAxisChanger();
+	BaseWorldObject* CreateMovableObject();
 
 	BaseWorldAnimatedObject* CreateTrap();
 
@@ -21,6 +22,7 @@ private:
 	BaseWorldObject* mAxisChanger	= nullptr;
 	BaseWorldObject* mFloorModelOne = nullptr;
 	BaseWorldObject* mFloorModelTwo = nullptr;
+	BaseWorldObject* mMovableBlock	= nullptr;
 
 	BaseWorldAnimatedObject* mSpikeTrap = nullptr;
 

@@ -30,8 +30,6 @@ void Atet_Application::SetUp()
 	WorldLuaHandler->RegisterFunctionInScript();
 	WorldLuaHandler->ExecuteScirpt();
 
-	
-
 }
 
 void Atet_Application::Update()

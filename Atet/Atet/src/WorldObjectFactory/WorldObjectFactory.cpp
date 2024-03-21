@@ -3,6 +3,7 @@
 #include "Floor.h"
 #include "AxisChanger.h"
 #include "Traps/SpikeTrap.h"
+#include "MovableObject.h"
 
 WorldObjectFactory::WorldObjectFactory()
 {
@@ -39,6 +40,13 @@ BaseWorldObject* WorldObjectFactory::CreateAxisChanger()
 	return newObject;
 }
 
+BaseWorldObject* WorldObjectFactory::CreateMovableObject()
+{
+	BaseWorldObject* newObject = new MovableObject();
+	newObject->CopyFromModel(*mMovableBlock, true);
+	return newObject;
+}
+
 BaseWorldAnimatedObject* WorldObjectFactory::CreateTrap()
 {
 	BaseWorldAnimatedObject* newObject = new SpikeTrap();
@@ -67,4 +75,8 @@ void WorldObjectFactory::CachedModels()
 	mSpikeTrap = new SpikeTrap("Assets/Models/Traps/Trap.fbx", false);
 	mSpikeTrap->shader = Renderer::GetInstance().skeletalAnimShader;
 	mSpikeTrap->LoadAndAddAnimationClip("Assets/Models/Traps/Trap.fbx", "Spike");
+
+
+	mMovableBlock = new MovableObject("res/Models/DefaultCube.fbx", false);
+	mMovableBlock->transform.SetScale(glm::vec3(0.5f));
 }
