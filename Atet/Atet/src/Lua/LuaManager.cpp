@@ -685,7 +685,7 @@ int LuaManager::LuaPlaySound(lua_State* L)
 	
 
 	Command* command = new SoundCommand();
-
+	
 	CommandManager::GetInstance().AddCommands(command);
 
 	return 0;

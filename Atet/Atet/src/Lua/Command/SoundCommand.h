@@ -15,6 +15,7 @@ public:
 	bool IsComplete() override;
 	bool IsStarted() override;
 
+	void Play();
 
 private:
 

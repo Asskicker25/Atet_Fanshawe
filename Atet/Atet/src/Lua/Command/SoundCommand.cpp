@@ -3,8 +3,7 @@
 SoundCommand::SoundCommand()
 {
 	std::cout << "Sound is Playing" << std::endl;
-	AudioSource* source = new AudioSource();
-	source->PlayAudio();
+	
 }
 
 SoundCommand::~SoundCommand()
@@ -15,6 +14,7 @@ SoundCommand::~SoundCommand()
 
 void SoundCommand::Start()
 {
+	
 }
 
 void SoundCommand::Update(float deltatime)
@@ -33,4 +33,11 @@ bool SoundCommand::IsComplete()
 bool SoundCommand::IsStarted()
 {
 	return false;
+}
+
+void SoundCommand::Play()
+{
+
+	AudioSource* source = new AudioSource();
+	source->PlayAudio();
 }

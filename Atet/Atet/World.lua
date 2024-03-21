@@ -1,5 +1,5 @@
 
-BeginCommand("SERIES",3)
-SetCollisionTrigger(0)
+BeginCommand("SERIES",1)
+SetCollisionTrigger(1)
 PlaySound();
-Endcommand(2)
+Endcommand(1)
