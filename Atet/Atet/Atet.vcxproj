@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)Dependencies\lib\Debug_assimp;$(ProjectDir)Dependencies\lib\glfw\$(Configuration)_x64;$(ProjectDir)Dependencies\lib\Physics\$(Configuration);$(ProjectDir)Dependencies\lib\Animation\$(Configuration);$(ProjectDir)Dependencies\lib\Graphics\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)Dependencies\lib\Debug_assimp;$(ProjectDir)Dependencies\lib\glfw\$(Configuration)_x64;$(ProjectDir)Dependencies\lib\Physics\$(Configuration);$(ProjectDir)Dependencies\lib\Animation\$(Configuration);$(ProjectDir)Dependencies\lib\Graphics\$(Configuration);$(ProjectDir)Dependencies\lib\fmod;$(ProjectDir)Dependencies\lib\lua;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)Dependencies\include;$(IncludePath)</IncludePath>
@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;Animation.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;assimp-vc143-mtd.lib;glfw3.lib;Graphics.lib;Physics.lib;Animation.lib;fmod_vc.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,7 +137,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Lua\Command\Command.cpp" />
+    <ClCompile Include="src\Lua\Command\CommandGroup.cpp" />
+    <ClCompile Include="src\Lua\Command\CommandManager.cpp" />
+    <ClCompile Include="src\Lua\Command\SoundCommand.cpp" />
+    <ClCompile Include="src\Lua\Command\WaitForSecond.cpp" />
+    <ClCompile Include="src\Lua\LuaBrain.cpp" />
+    <ClCompile Include="src\Lua\LuaHandler.cpp" />
+    <ClCompile Include="src\Lua\LuaManager.cpp" />
     <ClCompile Include="src\Player\PlayerHealthManager.cpp" />
+    <ClCompile Include="src\Sounds\AudioManager.cpp" />
+    <ClCompile Include="src\Sounds\AudioSource.cpp" />
+    <ClCompile Include="src\Sounds\AudioUtils.cpp" />
+    <ClCompile Include="src\Sounds\BaseAudioSource.cpp" />
     <ClCompile Include="src\SQLlite\SQLManager.cpp" />
     <ClCompile Include="src\Player\States\DeathState.cpp" />
     <ClCompile Include="src\SQLlite\shell.c" />
@@ -178,7 +190,20 @@
     <ClCompile Include="src\WorldObjectFactory\WorldObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Lua\Command\Command.h" />
+    <ClInclude Include="src\Lua\Command\CommandGroup.h" />
+    <ClInclude Include="src\Lua\Command\CommandManager.h" />
+    <ClInclude Include="src\Lua\Command\iCommand.h" />
+    <ClInclude Include="src\Lua\Command\SoundCommand.h" />
+    <ClInclude Include="src\Lua\Command\WaitForSeconds.h" />
+    <ClInclude Include="src\Lua\LuaBrain.h" />
+    <ClInclude Include="src\Lua\LuaHandler.h" />
+    <ClInclude Include="src\Lua\LuaManager.h" />
     <ClInclude Include="src\Player\PlayerHealthManager.h" />
+    <ClInclude Include="src\Sounds\AudioManager.h" />
+    <ClInclude Include="src\Sounds\AudioSource.h" />
+    <ClInclude Include="src\Sounds\AudioUtils.h" />
+    <ClInclude Include="src\Sounds\BaseAudioSource.h" />
     <ClInclude Include="src\SQLlite\SQLManager.h" />
     <ClInclude Include="src\Player\States\DeathState.h" />
     <ClInclude Include="src\SQLlite\sqlite3.h" />

@@ -1,11 +1,13 @@
 #pragma once
 #include "Command.h"
 #include <iostream>
+#include "../../Sounds/AudioSource.h"
 
 class SoundCommand : public Command
 {
 public:
 	SoundCommand();
+	SoundCommand(AudioSource* audio, std::string soundName);
 	~SoundCommand();
 
 	void Start() override;
@@ -18,8 +20,10 @@ public:
 	void Play();
 
 private:
-
+	AudioSource* audioSource;
+	std::string soundName;
 	float time;
 	float timeStep;
+	bool isInvoked = false;
 };
 

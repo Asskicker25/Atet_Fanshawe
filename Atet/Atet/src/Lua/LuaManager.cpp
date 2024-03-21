@@ -682,11 +682,25 @@ int LuaManager::LuaSetCollisionTrigger(lua_State* L)
 int LuaManager::LuaPlaySound(lua_State* L)
 {
 	int paramLength = lua_gettop(L);
-	
+	std::string soundName = lua_tostring(L, 1);
 
-	Command* command = new SoundCommand();
-	
-	CommandManager::GetInstance().AddCommands(command);
+	AudioSource* audioSource = new AudioSource();
+
+	if (soundName == "Die")
+	{
+
+
+		Command* command = new SoundCommand(audioSource, soundName);
+
+		CommandManager::GetInstance().AddCommands(command);
+	}
+	if (soundName == "Add")
+	{
+		Command* command = new SoundCommand(audioSource, soundName);
+
+		CommandManager::GetInstance().AddCommands(command);
+	}
+
 
 	return 0;
 }

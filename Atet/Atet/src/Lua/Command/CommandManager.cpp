@@ -104,6 +104,11 @@ CommandGroup* CommandManager::GetLastCommandGroup()
 	return commandGroupList[commandGroupList.size() - 1];
 }
 
+CommandGroup* CommandManager::GetCommandGroupIndex(int index)
+{
+	return commandGroupList[index];
+}
+
 bool CommandManager::isCommandExists(Command* command)
 {
 

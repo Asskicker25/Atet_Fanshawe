@@ -24,6 +24,7 @@ public:
 	CommandGroup* currentCommandGroup = nullptr;
 
 	CommandGroup* GetLastCommandGroup();
+	CommandGroup* GetCommandGroupIndex(int index);
 
 	bool isCommandExists(Command* command);
 private:
