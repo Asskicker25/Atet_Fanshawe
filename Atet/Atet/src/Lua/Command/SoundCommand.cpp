@@ -1,11 +1,16 @@
 #include "SoundCommand.h"
-
+#include "../../Sounds/AudioSource.h"
 SoundCommand::SoundCommand()
 {
+	std::cout << "Sound is Playing" << std::endl;
+	AudioSource* source = new AudioSource();
+	source->PlayAudio();
 }
 
 SoundCommand::~SoundCommand()
 {
+
+
 }
 
 void SoundCommand::Start()

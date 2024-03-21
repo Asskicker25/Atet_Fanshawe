@@ -276,6 +276,10 @@
     <assimpDLLCopyFile Include="assimp-vc143-mtd.dll" />
     <imGuiDefault Include="imgui.ini" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Lua\Script\World.lua" />
+    <None Include="World.lua" />
+  </ItemGroup>
   <Target Name="AtetBuild">
     <MakeDir Directories="$(outputFile)" />
     <MakeDir Directories="$(JsonConfig)" />

@@ -1,5 +1,6 @@
 #pragma once
 #include "Command.h"
+#include <iostream>
 
 class SoundCommand : public Command
 {

@@ -3,6 +3,7 @@
 #include <Graphics/ApplicationWindow.h>
 #include <Physics/PhysicsEngine.h>
 #include "Sounds/AudioSource.h"
+#include "Lua/LuaHandler.h"
 
 class Atet_Application : public ApplicationWindow
 {
@@ -19,5 +20,6 @@ class Atet_Application : public ApplicationWindow
 	void OnPlayStateChanged(bool state) override;
 
 	AudioSource* audioSource = new AudioSource();
+	LuaHandler* WorldLuaHandler;
 };
 

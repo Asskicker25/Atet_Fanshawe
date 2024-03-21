@@ -324,4 +324,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Lua\Script\World.lua" />
+    <None Include="World.lua" />
+  </ItemGroup>
 </Project>

@@ -57,7 +57,7 @@ int LuaBrain::lua_ExampleFunction(lua_State* L)
 void LuaBrain::LuaTestInit()
 {
 
-	std::string lua_script = "Example.lua";
+	std::string lua_script = "World.lua";
 
 	L_state = luaL_newstate();
 	luaL_openlibs(L_state);
@@ -65,6 +65,7 @@ void LuaBrain::LuaTestInit()
 
 	if (CheckLua(L_state, luaL_dofile(L_state, lua_script.c_str())))
 	{
+		std::cout << "IN >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
 		lua_getglobal(L_state, "MoveTo");
 
 		if (lua_isfunction(L_state, -1))

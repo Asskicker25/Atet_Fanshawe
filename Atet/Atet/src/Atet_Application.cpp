@@ -1,5 +1,7 @@
 #include "Atet_Application.h"
 #include "Scenes/Scene_1.h"
+#include "Lua/Command/CommandManager.h"
+
 
 void Atet_Application::SetUp()
 {
@@ -22,6 +24,12 @@ void Atet_Application::SetUp()
 	SceneManager::GetInstance().AddScene("Scene_1", scene_1);
 
 	SceneManager::GetInstance().ChangeScene("Scene_1");
+
+	WorldLuaHandler = new LuaHandler("World.lua");
+	WorldLuaHandler->RegisterFunctionInScript();
+	WorldLuaHandler->ExecuteScirpt();
+
+	CommandManager::GetInstance().Start();
 
 }
 
@@ -48,8 +56,11 @@ void Atet_Application::KeyCallBack(GLFWwindow* window, int& key, int& scancode, 
 	{
 
 
-		audioSource->PlayAudio();
-
+		//audioSource->PlayAudio();
+		if (!CommandManager::GetInstance().GetLastCommandGroup()->isCollisionTrigger)
+		{
+			CommandManager::GetInstance().GetLastCommandGroup()->isCollisionTrigger = true;
+		}
 
 	}
 }

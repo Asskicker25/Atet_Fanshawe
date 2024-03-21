@@ -39,7 +39,8 @@ void SpikeTrap::SpikeUp()
 	mSpikeUp = true;
 	mCurrentTimeStep = 0;
 	mControlTimeParam = SPIKE_DOWN_VALUE;
-	isPhysicsEnabled = true;
+	isPhysicsEnabled = true;	
+
 }
 
 void SpikeTrap::SpikeDown()
