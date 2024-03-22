@@ -18,6 +18,7 @@ public:
 	bool IsStarted() override;
 
 	void Play();
+	void Die();
 
 private:
 	AudioSource* audioSource;

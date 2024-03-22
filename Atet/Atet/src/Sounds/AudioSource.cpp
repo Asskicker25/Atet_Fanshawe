@@ -24,3 +24,10 @@ void AudioSource::PlayAudio()
 	mAudioManager->SetChannelVolume(channelId3, 0.5f);
 
 }
+
+void AudioSource::Death()
+{
+	int channelId3 = mAudioManager->PlayAudio("Assets/Audios/Death.mp3", 3);
+	mAudioManager->SetChannelVolume(channelId3, 0.5f);
+
+}

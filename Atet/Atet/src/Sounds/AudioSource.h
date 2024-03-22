@@ -18,6 +18,8 @@ public:
 	
 	void StopAudio();
 
+	void Death();
+
 	
 private:
 

@@ -65,3 +65,10 @@ void SoundCommand::Play()
 	AudioSource* source = new AudioSource();
 	source->PlayAudio();
 }
+
+void SoundCommand::Die()
+{
+
+	AudioSource* source = new AudioSource();
+	source->PlayAudio();
+}
