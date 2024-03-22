@@ -46,6 +46,7 @@ namespace Player
 		float mInteractDistance = 2.3f;
 
 		PlayerData mPlayerData;
+		PlayerHealthManager mPlayerHealthManager;
 
 		ePlayerAxis mCurrentAxis = ePlayerAxis::X;
 		ePlayerState mCurrentState = ePlayerState::IDLE;
@@ -68,7 +69,6 @@ namespace Player
 		std::vector<BaseState*> mListOfAlwaysStates;
 		std::unordered_map<ePlayerState, BaseState*> mListOfStates;
 
-		PlayerHealthManager mPlayerHealthManager;
 	};
 
 }

@@ -16,6 +16,7 @@ PlayerController::PlayerController()
 {
 	JSON::ReadPlayerData("Assets/JsonConfig/PlayerData.json", mPlayerData);
 
+
 	name = "PlayerController";
 	userData = this;
 
@@ -49,6 +50,10 @@ PlayerController::PlayerController()
 	mCameraController = new CameraController(this);
 
 	mPlayerHealthManager.Intialize(modelId);
+	system("cls");
+
+	printf("Current Lives : %u\n", mPlayerHealthManager.GetPlayerHealthCount());
+
 
 	//int health = mPlayerHealthManager.GetPlayerHealthCount();
 
