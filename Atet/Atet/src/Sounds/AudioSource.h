@@ -12,7 +12,7 @@ public:
 
 	void LoadAudio();
 
-	void PlayAudio();
+	void BackgroundAudio();
 
 	void PauseAudio();
 	
@@ -25,6 +25,6 @@ private:
 
 	AudioManager* mAudioManager = new AudioManager();
 
-
+	int channelId;
 };
 

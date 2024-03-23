@@ -38,6 +38,8 @@ void Atet_Application::Update()
 	{
 		PhysicsEngine::GetInstance().Update(Timer::GetInstance().deltaTime);
 		CommandManager::GetInstance().Update(Timer::GetInstance().deltaTime);
+		CommandManager::GetInstance().GetCommandGroupIndex(0)->isCollisionTrigger = true;
+
 	}
 }
 
@@ -51,16 +53,7 @@ void Atet_Application::ProcessInput(GLFWwindow* window)
 
 void Atet_Application::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)
 {
-	if (key == GLFW_KEY_P && action == GLFW_PRESS)
-	{
-		std::cout << "P Pressed" << std::endl;
-
-		if (!CommandManager::GetInstance().GetLastCommandGroup()->isCollisionTrigger)
-		{
-			std::cout << "inside Collision Trigger" << std::endl;
-			CommandManager::GetInstance().GetCommandGroupIndex(0)->isCollisionTrigger = true;
-		}
-	}
+	
 }
 
 void Atet_Application::MouseButtonCallback(GLFWwindow* window, int& button, int& action, int& mods)

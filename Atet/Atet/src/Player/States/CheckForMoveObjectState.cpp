@@ -19,8 +19,8 @@ void Player::CheckForMoveObjectState::Update()
 			{
 				mPlayerController->mCurrentMovableObject = obj;
 				mPlayerController->ChangeState(ePlayerState::OBJECT_MOVE);
-
 				mPlayerToMoveObject = true;
+
 				return;
 			}
 			
@@ -28,6 +28,7 @@ void Player::CheckForMoveObjectState::Update()
 	}
 
 	mMoveInputPressed = false;
+
 }
 
 void Player::CheckForMoveObjectState::Render()

@@ -9,6 +9,7 @@
 #include "States/DeathState.h"
 #include "States/CheckForMoveObjectState.h"
 #include "States/ObjectMoveState.h"
+#include "../Lua/Command/CommandManager.h"
 
 using namespace Player;
 
@@ -174,5 +175,11 @@ void Player::PlayerController::Kill()
 {
 	mDead = true;
 	isPhysicsEnabled = false;
+
+	if (!CommandManager::GetInstance().GetLastCommandGroup()->isCollisionTrigger)
+	{
+		std::cout << "inside Collision Trigger" << std::endl;
+		CommandManager::GetInstance().GetCommandGroupIndex(1)->isCollisionTrigger = true;
+	}
 }
 

@@ -19,7 +19,6 @@ class Atet_Application : public ApplicationWindow
 	void Shutdown() override;
 	void OnPlayStateChanged(bool state) override;
 
-	AudioSource* audioSource = new AudioSource();
 	LuaHandler* WorldLuaHandler;
 };
 

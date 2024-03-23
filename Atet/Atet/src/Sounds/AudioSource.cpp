@@ -14,15 +14,21 @@ AudioSource::~AudioSource()
 
 void AudioSource::LoadAudio()
 {
-	mAudioManager->Load3DAudio("Assets/Audios/assassins.mp3");
+	mAudioManager->Load3DAudio("Assets/Audios/Background.mp3");
+	mAudioManager->Load3DAudio("Assets/Audios/Death.mp3");
 
 }
 
-void AudioSource::PlayAudio()
+void AudioSource::BackgroundAudio()
 {
-	int channelId3 = mAudioManager->PlayAudio("Assets/Audios/assassins.mp3", 3);
-	mAudioManager->SetChannelVolume(channelId3, 0.5f);
+	channelId = mAudioManager->PlayAudio("Assets/Audios/Background.mp3", 1);
+	mAudioManager->SetChannelVolume(channelId,0.2f);
 
+}
+
+void AudioSource::StopAudio()
+{
+	mAudioManager->SetChannelStop(channelId);
 }
 
 void AudioSource::Death()

@@ -4,6 +4,8 @@
 
 #include <Graphics/InputManager/InputManager.h>
 #include <Graphics/Timer.h>
+#include "../../Lua/Command/CommandManager.h"
+
 
 void Player::ObjectMoveState::Start()
 {
@@ -53,6 +55,7 @@ void Player::ObjectMoveState::Update()
 	}
 
 	HandleMovement();
+
 	HandleAnimation();
 
 	mMovableObject->transform.position = mPlayerController->transform.position - mObjectOffset;
@@ -89,6 +92,7 @@ void Player::ObjectMoveState::MoveToRight()
 	mPlayerController->transform.position = movePos;
 	mIsLeft = false;
 	HandleRotation();
+
 }
 
 bool Player::ObjectMoveState::HandleInput()

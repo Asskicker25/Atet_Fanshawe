@@ -328,7 +328,7 @@ void AudioManager::Load3DAudio(const char* file)
 	FMOD_RESULT result;
 
 	// This call loads our audio file entirely into memory
-	result = m_System->createSound(file,  FMOD_3D | FMOD_LOOP_NORMAL , 0, &audioMap[file]->Audio);
+	result = m_System->createSound(file,  FMOD_3D  , 0, &audioMap[file]->Audio);
 	if (result != FMOD_OK)
 	{
 		printf("AudioManager::LoadAudio() Failed to load the Audio file: %s\n", file);

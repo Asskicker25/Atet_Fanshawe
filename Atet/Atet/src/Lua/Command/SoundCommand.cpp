@@ -36,7 +36,7 @@ void SoundCommand::Update(float deltatime)
 	{
 		if (!isInvoked)
 		{
-			std::cout << "Second Audio Playing" << std::endl;
+			Die();
 			isInvoked = true;
 		}
 	}
@@ -62,13 +62,13 @@ void SoundCommand::Play()
 {
 	std::cout << "Sound is Playing" << std::endl;
 
-	AudioSource* source = new AudioSource();
-	source->PlayAudio();
+	AudioSource* source = audioSource;
+	source->BackgroundAudio();
 }
 
 void SoundCommand::Die()
 {
 
-	AudioSource* source = new AudioSource();
-	source->PlayAudio();
+	AudioSource* source = audioSource;
+	source->Death();
 }
